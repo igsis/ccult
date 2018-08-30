@@ -6,9 +6,10 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class pessoaFisica extends Authenticatable
 {
+    protected $guard = 'pessoaFisica';
 
     use Notifiable;
-    
+
     protected $fillable = [
         'name', 'email', 'password', 
         'nome_social',

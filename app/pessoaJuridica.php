@@ -6,6 +6,9 @@ use Illuminate\Database\Eloquent\Model;
 
 class pessoaJuridica extends Model
 {
+
+    protected $guard = 'pessoaJuridica';
+
     protected $fillable = [
         'name', 'email', 'password',
     ];

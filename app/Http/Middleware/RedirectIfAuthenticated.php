@@ -38,4 +38,30 @@ class RedirectIfAuthenticated
 
         return $next($request);
     }
+
+    protected function unauthenticated($request, AuthenticationException $exception)
+    {
+        // return $request->expectsJson()
+        //             ? response()->json(['message' => $exception->getMessage()], 401)
+        //             : redirect()->guest(route('login'));
+        if($request->expectsJson()) {
+                return response()->json(['message' =>  $exception->getMessage()],401);
+            }
+        $guard = array_get($exception->guards(), 0);
+        switch ($guard) {
+            case 'pessoaFisica':
+                $login = 'pessoaFisica.login';
+                break;
+
+            case 'pessoaJuridica':
+                $login = 'pessoaJuridica.login';
+                break;
+            
+            default:
+                $login = 'login';
+                break;
+        }
+
+        return redirect()->guest(route($login));
+    }
 }
