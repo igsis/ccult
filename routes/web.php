@@ -21,7 +21,7 @@ Route::get('/home', 'HomeController@index')->name('home');
 
 Route::group(['prefix' => 'PessoaFisica'], function(){
     // Authentication Routes...
-    Route::get('login', 'PessoaFisicaAuth\LoginController@showLoginForm')->name('login');
+    Route::get('login', 'PessoaFisicaAuth\LoginController@showLoginForm')->name('login.pf');
     Route::post('login', 'PessoaFisicaAuth\LoginController@login');
     Route::post('logout', 'PessoaFisicaAuth\LoginController@logout');
     
@@ -38,7 +38,7 @@ Route::group(['prefix' => 'PessoaFisica'], function(){
 
 Route::group(['prefix' => 'pessoaJuridica'], function(){
     // Authentication Routes...
-    Route::get('login', 'Auth\LoginController@showLoginForm')->name('login');
+    Route::get('login', 'Auth\LoginController@showLoginForm')->name('login.pj');
     Route::post('login', 'Auth\LoginController@login');
     Route::post('logout', 'Auth\LoginController@logout');
     

@@ -45,6 +45,16 @@ return [
             'driver' => 'token',
             'provider' => 'users',
         ],
+
+        // pessoaFisica guards
+        'pessoaFisica' => [
+            'driver' => 'session',
+            'provider' => 'pessoaFisica',
+        ],
+        'pessoaFisica-api' => [
+            'driver' => 'token',
+            'provider' => 'pessoaFisica',
+        ],
     ],
 
     /*
@@ -70,10 +80,12 @@ return [
             'model' => App\User::class,
         ],
 
-        // 'users' => [
-        //     'driver' => 'database',
-        //     'table' => 'users',
-        // ],
+        //providers
+
+        'pessoaFisica' => [
+            'driver' => 'eloquent',
+            'model' => App\Models\pessoaFisica::class,
+        ],
     ],
 
     /*
@@ -95,6 +107,12 @@ return [
         'users' => [
             'provider' => 'users',
             'table' => 'password_resets',
+            'expire' => 60,
+        ],
+
+        'pessoaFisica' => [
+            'provider' => 'pessoaFisica',
+            'table' => 'pf_password_resets',
             'expire' => 60,
         ],
     ],
