@@ -2,9 +2,35 @@
 
 namespace App;
 
-use Illuminate\Database\Eloquent\Model;
+use Illuminate\Foundation\Auth\User as Authenticatable;
 
-class pessoaFisica extends Model
+class pessoaFisica extends Authenticatable
 {
-    //
+
+    use Notifiable;
+    
+    protected $fillable = [
+        'name', 'email', 'password', 
+        'nome_social',
+        'nome_artistico',
+        'nome_artistico',
+        'documento_tipo_id',
+        'rg_rne',
+        'ccm', 
+        'cpf',
+        'passaporte',
+        'data_nascimento',
+        'email'
+    ];
+
+
+
+    /**
+     * The attributes that should be hidden for arrays.
+     *
+     * @var array
+     */
+    protected $hidden = [
+        'password', 'remember_token',
+    ];
 }

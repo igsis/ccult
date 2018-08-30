@@ -55,6 +55,16 @@ return [
             'driver' => 'token',
             'provider' => 'pessoaFisica',
         ],
+
+        // pessoaJuridica guards
+        'pessoaJuridica' => [
+            'driver' => 'session',
+            'provider' => 'pessoaJuridica',
+        ],
+        'pessoaJuridica-api' => [
+            'driver' => 'token',
+            'provider' => 'pessoaJuridica',
+        ],
     ],
 
     /*
@@ -84,7 +94,12 @@ return [
 
         'pessoaFisica' => [
             'driver' => 'eloquent',
-            'model' => App\Models\pessoaFisica::class,
+            'model' => App\pessoaFisica::class,
+        ],
+
+        'pessoaJuridica' => [
+            'driver' => 'eloquent',
+            'model' => App\pessoaJuridica::class,
         ],
     ],
 
@@ -113,6 +128,12 @@ return [
         'pessoaFisica' => [
             'provider' => 'pessoaFisica',
             'table' => 'pf_password_resets',
+            'expire' => 60,
+        ],
+
+        'pessoaJuridica' => [
+            'provider' => 'pessoaJuridica',
+            'table' => 'pj_password_resets',
             'expire' => 60,
         ],
     ],
