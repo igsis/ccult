@@ -14,11 +14,26 @@ class RedirectIfAuthenticated
      * @param  \Closure  $next
      * @param  string|null  $guard
      * @return mixed
-     */
+     */    
     public function handle($request, Closure $next, $guard = null)
     {
-        if (Auth::guard($guard)->check()) {
-            return redirect('/home');
+        switch ($guard) {
+            case 'pessoaFisica':
+                if(Auth::guard($guard)->check()){
+                    return redirect()->route('pessoaFisica.dashboard');
+                }
+                break;
+            case 'pessoaJuridica':
+                if(Auth::guard($guard)->check()){
+                    return redirect()->route('pessoaJuridica.dashboard');
+                }
+                break;
+            
+            default:
+                if (Auth::guard($guard)->check()) {
+                    return redirect('/home');
+                }
+                break;
         }
 
         return $next($request);
