@@ -42,19 +42,21 @@ Route::group(['prefix' => 'PessoaFisica', 'middleware' => 'pessoaFisica'], funct
     })->name('pessoaFisica.dashboard');
 });
 
-Route::group(['prefix' => 'pessoaJuridica'], function(){
+Route::group(['prefix' => 'pessoaJuridica', 'middleware' => 'pessoaJuridica'], function(){
     // Authentication Routes...
-    Route::get('login', 'Auth\LoginController@showLoginForm')->name('login.pj');
-    Route::post('login', 'Auth\LoginController@login');
-    Route::post('logout', 'Auth\LoginController@logout');
+    Route::get('login', 'PessoaJuridicaAuth\LoginController@showLoginForm')->name('login.formPessoaJuridica');
+    Route::post('login', 'PessoaJuridicaAuth\LoginController@login')->name('login.pessoaJuridica');
+    Route::post('logout', 'PessoaJuridicaAuth\LoginController@logout');
     
     // Registration Routes...
-    Route::get('register', 'Auth\RegisterController@showRegistrationForm');
-    Route::post('register', 'Auth\RegisterController@register');
+    Route::get('register', 'PessoaJuridicaAuth\RegisterController@showRegistrationForm');
+    Route::post('register', 'PessoaJuridicaAuth\RegisterController@register')->name('pessoaJuridica.register');
     
     // Password Reset Routes...
-    Route::get('password/reset', 'Auth\ForgotPasswordController@showLinkRequestForm');
-    Route::post('password/email', 'Auth\ForgotPasswordController@sendResetLinkEmail');
-    Route::get('password/reset/{token}', 'Auth\ResetPasswordController@showResetForm');
-    Route::post('password/reset', 'Auth\ResetPasswordController@reset');
+    Route::get('password/reset', 'PessoaJuridicaAuth\ForgotPasswordController@showLinkRequestForm');
+    Route::post('password/email', 'PessoaJuridicaAuth\ForgotPasswordController@sendResetLinkEmail');
+    Route::get('password/reset/{token}', 'PessoaJuridicaAuth\ResetPasswordController@showResetForm');
+    Route::post('password/reset', 'PessoaJuridicaAuth\ResetPasswordController@reset');
+
+    Route::get('/home', 'PessoaJuridicaController@index')->name('pessoaJuridica.home');
 });

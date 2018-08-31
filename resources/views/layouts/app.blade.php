@@ -48,10 +48,16 @@
                                 <a class="nav-link" href="{{ route('login.formPessoaFisica') }}">{{ __('login Pessoa Física') }}</a>
                             </li>
                             <li class="nav-item">
+                                <a class="nav-link" href="{{ route('login.formPessoaJuridica') }}">{{ __('login Pessoa Jurídica') }}</a>
+                            </li>
+                            <li class="nav-item">
                                 <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" href="{{ route('pessoaFisica.register') }}">{{ __('Register Pessoa Física') }}</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ route('pessoaJuridica.register') }}">{{ __('Register Pessoa Jurídica') }}</a>
                             </li>
                         @else
                             <li class="nav-item dropdown">
