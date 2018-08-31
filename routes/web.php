@@ -35,7 +35,7 @@ Route::group(['prefix' => 'PessoaFisica', 'middleware' => 'pessoaFisica'], funct
     Route::get('password/reset/{token}', 'PessoaFisicaAuth\ResetPasswordController@showResetForm');
     Route::post('password/reset', 'PessoaFisicaAuth\ResetPasswordController@reset');
 
-    Route::get('/', function () {
+    Route::get('/home', function () {
         return view('pessoaFisicaAuth.home');
     })->name('PessoaFisica.home');
 
