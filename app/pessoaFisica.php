@@ -3,12 +3,13 @@
 namespace App;
 
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Notifications\Notifiable;
 
 class pessoaFisica extends Authenticatable
 {
-    protected $guard = 'pessoaFisica';
-
     use Notifiable;
+
+    protected $guard = 'pessoaFisica';   
 
     protected $fillable = [
         'name', 'email', 'password', 

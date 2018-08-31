@@ -16,14 +16,14 @@ class PessoaFisicas extends Migration
         Schema::create('pessoa_fisicas', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name',70);
-            $table->string('nome_social',70);
-            $table->string('nome_artistico',70);
-            $table->tinyInteger('documento_tipo_id');
-            $table->string('rg_rne', 100);
-            $table->char('ccm', 11);
-            $table->char('cpf', 14);
-            $table->string('passaporte',10);
-            $table->date('data_nascimento');
+            $table->string('nome_social',70)->nullable();
+            $table->string('nome_artistico',70)->nullable();
+            $table->tinyInteger('documento_tipo_id')->nullable();
+            $table->string('rg_rne', 100)->nullable();
+            $table->char('ccm', 11)->nullable();
+            $table->char('cpf', 14)->nullable();
+            $table->string('passaporte',10)->nullable();
+            $table->date('data_nascimento')->nullable();
             $table->string('email')->unique();
             $table->string('password');
             $table->rememberToken();

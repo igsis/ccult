@@ -49,21 +49,21 @@ return [
         // pessoaFisica guards
         'pessoaFisica' => [
             'driver' => 'session',
-            'provider' => 'pessoaFisica',
+            'provider' => 'pessoa_fisicas',
         ],
         'pessoaFisica-api' => [
             'driver' => 'token',
-            'provider' => 'pessoaFisica',
+            'provider' => 'pessoa_fisicas',
         ],
 
         // pessoaJuridica guards
         'pessoaJuridica' => [
             'driver' => 'session',
-            'provider' => 'pessoaJuridica',
+            'provider' => 'pessoa_juridicas',
         ],
         'pessoaJuridica-api' => [
             'driver' => 'token',
-            'provider' => 'pessoaJuridica',
+            'provider' => 'pessoa_juridicas',
         ],
     ],
 
@@ -92,12 +92,12 @@ return [
 
         //providers
 
-        'pessoaFisica' => [
+        'pessoa_fisicas' => [
             'driver' => 'eloquent',
             'model' => App\pessoaFisica::class,
         ],
 
-        'pessoaJuridica' => [
+        'pessoa_juridicas' => [
             'driver' => 'eloquent',
             'model' => App\pessoaJuridica::class,
         ],
