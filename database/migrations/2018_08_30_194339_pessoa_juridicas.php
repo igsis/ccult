@@ -15,9 +15,14 @@ class PessoaJuridicas extends Migration
     {
         Schema::create('pessoa_juridicas', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('name');
+            $table->string('name')->nullable();;
+            $table->string('razao_social', 100)->nullable();;
+            $table->string('cnpj', 18)->nullable();;
+            $table->char('ccm', 11)->nullable();;
             $table->string('email')->unique();
             $table->string('password');
+            $table->string('representante_legal1_id')->nullable();;
+            $table->string('representante_legal2_id')->nullable();;
             $table->rememberToken();
             $table->timestamps();
         });

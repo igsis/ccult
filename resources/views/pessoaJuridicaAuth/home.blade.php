@@ -14,7 +14,7 @@
                         </div>
                     @endif
 
-                    You are logged in! pf 
+                    You are logged in! pj
                     {{auth()->user()->email}}
    
                 </div>

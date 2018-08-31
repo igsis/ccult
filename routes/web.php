@@ -42,7 +42,7 @@ Route::group(['prefix' => 'PessoaFisica', 'middleware' => 'pessoaFisica'], funct
     })->name('pessoaFisica.dashboard');
 });
 
-Route::group(['prefix' => 'pessoaJuridica', 'middleware' => 'pessoaJuridica'], function(){
+Route::group(['prefix' => 'PessoaJuridica', 'middleware' => 'pessoaJuridica'], function(){
     // Authentication Routes...
     Route::get('login', 'PessoaJuridicaAuth\LoginController@showLoginForm')->name('login.formPessoaJuridica');
     Route::post('login', 'PessoaJuridicaAuth\LoginController@login')->name('login.pessoaJuridica');
