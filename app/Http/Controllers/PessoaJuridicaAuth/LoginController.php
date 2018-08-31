@@ -3,13 +3,15 @@
 namespace App\Http\Controllers\PessoaJuridicaAuth;
 
 use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 
 class LoginController extends Controller
 {
     use AuthenticatesUsers;
 
-    protected $redirectTo = '/pessoaJuridica/home';
+    protected $redirectTo = '/PessoaJuridica/home';
 
     public function __construct()
     {
@@ -18,7 +20,7 @@ class LoginController extends Controller
 
     public function showLoginForm()
     {
-        return view('pessoaJuridicaAuth.login');
+        return view('pessoaJuridicaAuth.login'); 
     }
 
     public function login(Request $request)
@@ -33,7 +35,7 @@ class LoginController extends Controller
         ];
 
         if(Auth::guard('pessoaJuridica')->attempt($credential, $request->menber)){
-            return redirect()->route('PessoaJuridica.home');
+            return redirect()->route('pessoaJuridica.home');
         }
 
         if(Auth::guard('web')->attempt($credential, $request->menber)){

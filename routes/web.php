@@ -37,9 +37,6 @@ Route::group(['prefix' => 'PessoaFisica', 'middleware' => 'pessoaFisica'], funct
 
     Route::get('/home', 'PessoaFisicaController@index')->name('pessoaFisica.home');
 
-    Route::get('/sei la', function () {
-        return view('pessoaFisicaAuth.dashboard');
-    })->name('pessoaFisica.dashboard');
 });
 
 Route::group(['prefix' => 'PessoaJuridica', 'middleware' => 'pessoaJuridica'], function(){

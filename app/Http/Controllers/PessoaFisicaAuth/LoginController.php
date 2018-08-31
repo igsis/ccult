@@ -17,7 +17,7 @@ class LoginController extends Controller
     {
         $this->middleware('guest:pessoaFisica')->except('logout');
     }
-
+  
     public function showLoginForm()
     {
         return view('pessoaFisicaAuth.login');
@@ -35,7 +35,7 @@ class LoginController extends Controller
         ];
 
         if(Auth::guard('pessoaFisica')->attempt($credential, $request->menber)){
-            return redirect()->route('PessoaFisica.home');
+            return redirect()->route('pessoaFisica.home');
         }
 
         if(Auth::guard('web')->attempt($credential, $request->menber)){
