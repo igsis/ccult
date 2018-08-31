@@ -21,13 +21,13 @@ Route::get('/home', 'HomeController@index')->name('home');
 
 Route::group(['prefix' => 'PessoaFisica', 'middleware' => 'pessoaFisica'], function(){
     // Authentication Routes...
-    Route::get('login', 'PessoaFisicaAuth\LoginController@showLoginForm')->name('login.pf');
+    Route::get('login', 'PessoaFisicaAuth\LoginController@showLoginForm')->name('login.formPessoaFisica');
     Route::post('login', 'PessoaFisicaAuth\LoginController@login')->name('login.pessoaFisica');
     Route::post('logout', 'PessoaFisicaAuth\LoginController@logout');
     
     // Registration Routes...
     Route::get('register', 'PessoaFisicaAuth\RegisterController@showRegistrationForm');
-    Route::post('register', 'PessoaFisicaAuth\RegisterController@register');
+    Route::post('register', 'PessoaFisicaAuth\RegisterController@register')->name('pessoaFisica.register');
     
     // Password Reset Routes...
     Route::get('password/reset', 'PessoaFisicaAuth\ForgotPasswordController@showLinkRequestForm');
@@ -37,7 +37,7 @@ Route::group(['prefix' => 'PessoaFisica', 'middleware' => 'pessoaFisica'], funct
 
     Route::get('/home', 'PessoaFisicaController@index')->name('pessoaFisica.home');
 
-    Route::get('/', function () {
+    Route::get('/sei la', function () {
         return view('pessoaFisicaAuth.dashboard');
     })->name('pessoaFisica.dashboard');
 });

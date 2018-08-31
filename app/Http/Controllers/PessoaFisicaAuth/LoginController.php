@@ -13,7 +13,7 @@ class LoginController extends Controller
 
     use AuthenticatesUsers;
 
-    protected $redirectTo = '/pessoaFisica/home/foi';
+    protected $redirectTo = '/PessoaFisica/home';
 
     public function __construct()
     {
