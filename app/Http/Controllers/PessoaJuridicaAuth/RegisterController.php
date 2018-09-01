@@ -2,8 +2,7 @@
 
 namespace App\Http\Controllers\PessoaJuridicaAuth;
 
-use App\User;
-use App\pessoaJuridica;
+use App\Models\PessoaJuridica;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;

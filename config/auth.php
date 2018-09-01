@@ -15,7 +15,7 @@ return [
 
     'defaults' => [
         'guard' => 'web',
-        'passwords' => 'users',
+        'passwords' => 'users', 
     ],
 
     /*
@@ -87,19 +87,19 @@ return [
     'providers' => [
         'users' => [
             'driver' => 'eloquent',
-            'model' => App\User::class,
+            'model' => App\Models\User::class,
         ],
 
         //providers
 
         'pessoa_fisicas' => [
             'driver' => 'eloquent',
-            'model' => App\pessoaFisica::class,
+            'model' => App\Models\PessoaFisica::class,
         ],
 
         'pessoa_juridicas' => [
             'driver' => 'eloquent',
-            'model' => App\pessoaJuridica::class,
+            'model' => App\Models\PessoaJuridica::class,
         ],
     ],
 

@@ -2,8 +2,7 @@
 
 namespace App\Http\Controllers\PessoaFisicaAuth;
 
-use App\User;
-use App\pessoaFisica;
+use App\Models\PessoaFisica;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
