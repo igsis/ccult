@@ -1,105 +1,112 @@
-@extends('layouts.app')
+@extends('adminlte::master')
 
-@section('content')
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">Cadatro de Pessoa Física</div>
+@section('adminlte_css')
+    <link rel="stylesheet" href="{{ asset('vendor/adminlte/css/auth.css') }}">
+    @yield('css')
+@stop
 
-                <div class="card-body">
-                    <form method="POST" action="{{ route('pessoaFisica.register') }}" aria-label="{{ __('Register') }}">
-                        @csrf
+@section('body_class', 'register-page')
 
-                        <div class="form-group row">
-                            <label for="nome" class="col-md-4 col-form-label text-md-right">{{ __('Nome') }}</label>
+@section('body')
+    <div class="register-box">
+        <div class="register-logo">
+            <a href="{{ url(config('adminlte.dashboard_url', 'home')) }}">{!! config('adminlte.logo', '<b>CCULT</b>') !!}</a>
+        </div>
 
-                            <div class="col-md-6">
-                                <input id="nome" type="text" class="form-control{{ $errors->has('nome') ? ' is-invalid' : '' }}" name="nome" value="{{ old('nome') }}" required autofocus>
+        <div class="register-box-body">
+        <div class="container">
+                <h3>Cadastro de Pessoa Física</h3><br>
+            </div>
+            <form action="{{ route('pessoaFisica.register') }}" method="post">
+                {!! csrf_field() !!}
 
-                                @if ($errors->has('nome'))
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $errors->first('nome') }}</strong>
-                                    </span>
-                                @endif
-                            </div>
-                        </div>
-
-                        <div class="form-group row">
-                            <label for="email" class="col-md-4 col-form-label text-md-right">{{ __('E-mail') }}</label>
-
-                            <div class="col-md-6">
-                                <input id="email" type="email" class="form-control{{ $errors->has('email') ? ' is-invalid' : '' }}" name="email" value="{{ old('email') }}" required>
-
-                                @if ($errors->has('email'))
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $errors->first('email') }}</strong>
-                                    </span>
-                                @endif
-                            </div>
-                        </div>
-
-                        <div class="form-group row">
-                            <label for="cpf" class="col-md-4 col-form-label text-md-right">{{ __('CPF') }}</label>
-
-                            <div class="col-md-6">
-                                <input id="cpf" type="text" class="form-control{{ $errors->has('cpf') ? ' is-invalid' : '' }}" name="cpf" value="{{ old('cpf') }}" required>
-
-                                @if ($errors->has('cpf'))
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $errors->first('cpf') }}</strong>
-                                    </span>
-                                @endif
-                            </div>
-                        </div>
-
-                        <div class="form-group row">
-                            <label for="rg_rne" class="col-md-4 col-form-label text-md-right">{{ __('RG - RNE') }}</label>
-
-                            <div class="col-md-6">
-                                <input id="rg_rne" type="text" class="form-control{{ $errors->has('rg_rne') ? ' is-invalid' : '' }}" name="rg_rne" value="{{ old('rg_rne') }}" required>
-
-                                @if ($errors->has('rg_rne'))
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $errors->first('rg_rne') }}</strong>
-                                    </span>
-                                @endif
-                            </div>
-                        </div>
-
-                        <div class="form-group row">
-                            <label for="password" class="col-md-4 col-form-label text-md-right">{{ __('Senha') }}</label>
-
-                            <div class="col-md-6">
-                                <input id="password" type="password" class="form-control{{ $errors->has('password') ? ' is-invalid' : '' }}" name="password" required>
-
-                                @if ($errors->has('password'))
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $errors->first('password') }}</strong>
-                                    </span>
-                                @endif
-                            </div>
-                        </div>
-
-                        <div class="form-group row">
-                            <label for="password-confirm" class="col-md-4 col-form-label text-md-right">{{ __('Confirme a Senha') }}</label>
-
-                            <div class="col-md-6">
-                                <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required>
-                            </div>
-                        </div>
-
-                        <div class="form-group row mb-0">
-                            <div class="col-md-6 offset-md-4">
-                                <button type="submit" class="btn btn-primary">
-                                    {{ __('Register') }}
-                                </button>
-                            </div>
-                        </div>
-                    </form>
+                <div class="form-group has-feedback {{ $errors->has('nome') ? 'has-error' : '' }}">
+                    <input type="text" name="nome" class="form-control" value="{{ old('nome') }}"
+                           placeholder="Nome">
+                    <span class="glyphicon glyphicon-user form-control-feedback"></span>
+                    @if ($errors->has('nome'))
+                        <span class="help-block">
+                            <strong>{{ $errors->first('nome') }}</strong>
+                        </span>
+                    @endif
                 </div>
+
+                <div class="form-group has-feedback {{ $errors->has('cpf') ? 'has-error' : '' }}">
+                    <input type="text" name="cpf" class="form-control" value="{{ old('cpf') }}"
+                           placeholder="CPF">
+                    <span class="glyphicon glyphicon-ser form-control-feedback"></span>
+                    @if ($errors->has('cpf'))
+                        <span class="help-block">
+                            <strong>{{ $errors->first('CPF') }}</strong>
+                        </span>
+                    @endif
+                </div>
+
+                <div class="form-group has-feedback {{ $errors->has('rg_rne') ? 'has-error' : '' }}">
+                    <input type="text" name="rg_rne" class="form-control" value="{{ old('rg_rne') }}"
+                           placeholder="RG - RNE">
+                    <span class="glyphicon glyphicon- form-control-feedback"></span>
+                    @if ($errors->has('rg_rne'))
+                        <span class="help-block">
+                            <strong>{{ $errors->first('RG - RNE') }}</strong>
+                        </span>
+                    @endif
+                </div>     
+
+                <div class="form-group has-feedback {{ $errors->has('data_nascimento') ? 'has-error' : '' }}">
+                    <input type="date" name="data_nascimento" class="form-control" value="{{ old('data_nascimento') }}"
+                           placeholder="Data de Nascimento">
+                    <span class="glyphicon glyphicon- form-control-feedback"></span>
+                    @if ($errors->has('data_nascimento'))
+                        <span class="help-block">
+                            <strong>{{ $errors->first('Data de Nascimento') }}</strong>
+                        </span>
+                    @endif
+                </div>  
+
+                <div class="form-group has-feedback {{ $errors->has('email') ? 'has-error' : '' }}">
+                    <input type="email" name="email" class="form-control" value="{{ old('email') }}"
+                           placeholder="{{ trans('adminlte::adminlte.email') }}">
+                    <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
+                    @if ($errors->has('email'))
+                        <span class="help-block">
+                            <strong>{{ $errors->first('email') }}</strong>
+                        </span>
+                    @endif
+                </div>
+                <div class="form-group has-feedback {{ $errors->has('password') ? 'has-error' : '' }}">
+                    <input type="password" name="password" class="form-control"
+                           placeholder="{{ trans('adminlte::adminlte.password') }}">
+                    <span class="glyphicon glyphicon-lock form-control-feedback"></span>
+                    @if ($errors->has('password'))
+                        <span class="help-block">
+                            <strong>{{ $errors->first('password') }}</strong>
+                        </span>
+                    @endif
+                </div>
+                <div class="form-group has-feedback {{ $errors->has('password_confirmation') ? 'has-error' : '' }}">
+                    <input type="password" name="password_confirmation" class="form-control"
+                           placeholder="{{ trans('adminlte::adminlte.retype_password') }}">
+                    <span class="glyphicon glyphicon-log-in form-control-feedback"></span>
+                    @if ($errors->has('password_confirmation'))
+                        <span class="help-block">
+                            <strong>{{ $errors->first('password_confirmation') }}</strong>
+                        </span>
+                    @endif
+                </div>
+                <button type="submit"
+                        class="btn btn-primary btn-block btn-flat"
+                >Cadastrar</button>
+            </form>
+            <div class="auth-links">
+                <a href="{{ route('pessoaFisica.formLogin') }}"
+                   class="text-center">Já sou cadastrado</a>
             </div>
         </div>
-    </div>
-</div>
-@endsection
+        <!-- /.form-box -->
+    </div><!-- /.register-box -->
+@stop
+
+@section('adminlte_js')
+    @yield('js')
+@stop

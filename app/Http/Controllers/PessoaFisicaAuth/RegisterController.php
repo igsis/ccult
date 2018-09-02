@@ -29,10 +29,11 @@ class RegisterController extends Controller
     {
         return Validator::make($data, [
             'nome' => 'required|string|max:255',
-            'email' => 'required|string|email|max:255|unique:users',
+            'email' => 'required|string|email|max:255|unique:pessoa_fisicas',
             'password' => 'required|string|min:6|confirmed',
             'cpf' => 'required|string|min:11',
             'rg_rne' => 'required|string|min:6',
+            'data_nascimento'  => 'required',
         ]);
     }
 
@@ -48,6 +49,7 @@ class RegisterController extends Controller
             'email' => $data['email'],
             'cpf' => $data['cpf'],
             'rg_rne' => $data['rg_rne'],
+            'data_nascimento' => $data['data_nascimento'],
             'password' => Hash::make($data['password']),
         ]);
     }

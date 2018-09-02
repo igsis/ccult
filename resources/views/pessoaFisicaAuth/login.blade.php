@@ -15,7 +15,9 @@
         </div>
         <!-- /.login-logo -->
         <div class="login-box-body">
-            <p class="login-box-msg">{{ trans('adminlte::adminlte.login_message') }}</p>
+            <div class="container">
+                <h3>Login Pessoa Física</h3><br>
+            </div>
             <form action="{{ route('pessoaFisica.login') }}" method="post">
                 {!! csrf_field() !!}
 
@@ -41,11 +43,11 @@
                 </div>
                 <div class="row">
                     <div class="col-xs-8">
-                        <div class="checkbox icheck">
+                        <!-- <div class="checkbox icheck">
                             <label>
                                 <input type="checkbox" name="remember"> {{ trans('adminlte::adminlte.remember_me') }}
                             </label>
-                        </div>
+                        </div> -->
                     </div>
                     <!-- /.col -->
                     <div class="col-xs-4">
@@ -56,15 +58,14 @@
                 </div>
             </form>
             <div class="auth-links">
-                <a href="{{ url(config('adminlte.password_reset_url', 'password/reset')) }}"
+                <!-- <a href="{{ url(config('adminlte.password_reset_url', 'password/reset')) }}"
                    class="text-center"
-                >{{ trans('adminlte::adminlte.i_forgot_my_password') }}</a>
+                >{{ trans('adminlte::adminlte.i_forgot_my_password') }}</a> -->
                 <br>
-                @if (config('adminlte.register_url', 'register'))
-                    <a href="{{ url(config('adminlte.register_url', 'register')) }}"
-                       class="text-center"
-                    >{{ trans('adminlte::adminlte.register_a_new_membership') }}</a>
-                @endif
+                <a href="{{route('pessoaFisica.register')}}"
+                       class="text-center">
+                       Cadastrar uma Pessoa Física
+                </a>
             </div>
         </div>
         <!-- /.login-box-body -->

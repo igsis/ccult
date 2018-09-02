@@ -13,17 +13,16 @@ class PessoaJuridica extends Authenticatable
 
     protected $fillable = [
         'razao_social',
+        'cnpj',
+        'ccm',
         'email',
         'password',
-        'nome_social',
-        'nome_artistico',
-        'documento_tipo_id',
-        'rg_rne',
-        'ccm',
-        'cpf',
-        'passaporte',
-        'data_nascimento',
+        'representante_legal1_id',
+        'representante_legal2_id',
+        'active',
+        'created_at',
         'updated_at'
+        // documento_tipo_id ??
     ];
 
     /**
