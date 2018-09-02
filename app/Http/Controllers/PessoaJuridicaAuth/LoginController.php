@@ -36,7 +36,7 @@ class LoginController extends Controller
             'password' => 'required|min:6'
         ]);
         $credential = [
-            'cnpj' => $request->email,
+            'cnpj' => $request->cnpj,
             'password' => $request->password
         ];
 
