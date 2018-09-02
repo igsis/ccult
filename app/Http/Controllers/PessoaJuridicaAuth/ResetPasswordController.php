@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Http\Controllers\PessoaJuridicaAuth;
+namespace ccult\Http\Controllers\PessoaJuridicaAuth;
 
-use App\Http\Controllers\Controller;
+use ccult\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\ResetsPasswords;
 
 class ResetPasswordController extends Controller

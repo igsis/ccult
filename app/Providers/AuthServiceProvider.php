@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Providers;
+namespace ccult\Providers;
 
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
@@ -10,20 +10,11 @@ use JeroenNoten\LaravelAdminLte\Events\BuildingMenu;
 
 class AuthServiceProvider extends ServiceProvider
 {
-    /**
-     * The policy mappings for the application.
-     *
-     * @var array
-     */
+
     protected $policies = [
-        'App\Model' => 'App\Policies\ModelPolicy',
+        'ccult\Model' => 'ccult\Policies\ModelPolicy',
     ];
 
-    /**
-     * Register any authentication / authorization services.
-     *
-     * @return void
-     */
     public function boot(Dispatcher $events)
     {
         $this->registerPolicies();
@@ -37,7 +28,7 @@ class AuthServiceProvider extends ServiceProvider
             # Menu para Users
             if(auth()->guard('web')->user())
             {
-                $event->menu->add('Menu de Navegação');
+                $event->menu->add('MENU DE NAVEGAÇÃO');
                 $event->menu->add([
                     'text' =>   'Home',
                     'url'  =>   route('home'),
@@ -48,37 +39,45 @@ class AuthServiceProvider extends ServiceProvider
 
         $events->listen(BuildingMenu::class, function (BuildingMenu $event) {
             # Menu para Pessoas Fisicas
-            if(auth()->guard('pessoaFisica')->user()){
-               
-                $event->menu->add('Menu de Navegação');
+
+            // Gate::define('validar', function ($user) {
+            //     return $user;
+            // });
+            if(auth()->guard('pessoaFisica')->user())
+            {              
+                $event->menu->add('MENU DE NAVEGAÇÃO');
                 $event->menu->add(
                     [
                         'text' =>   'Home',
-                        'url'  =>   route('home'),
+                        'url'  =>   route('pessoaFisica.home'),
                         'icon' =>   'home',
-              
+                    ],
+                    [
+                        'text' =>   'Home',
+                        'url'  =>   route('pessoaFisica.home'),
+                        'icon' =>   'home',
+                        'can' => 'validar'
                     ],
                     [
                         'text' => 'Pessoa Física',                    
                         'icon' => 'user',
                         'submenu' => [
                             [
-                                'text'    => 'Cadastrar',
+                                'text'    => 'Cadastro',
                                 'icon' => '',
-                                'url'  => 'PessoaJuridica/cadastrar',
+                                'url'  => route('pessoaFisica.formRegister'),
                             ],
             
                             [
                                 'text' => 'Atualizar',
                                 'icon' => '',
-                                'url'  => 'PessoaJuridica/Atualizar',
+                                'url'  => 'ASD',
                             ],
                         ],
                     ]
                 );
-
-                // dd($event->menu);
             }
+
         });
 
         # Menu para Pessoas Fisicas
@@ -86,11 +85,11 @@ class AuthServiceProvider extends ServiceProvider
             # Menu para Pessoas Fisicas
             if(auth()->guard('pessoaJuridica')->user())
             {
-                $event->menu->add('Menu de Navegação');
+                $event->menu->add('MENU DE NAVEGAÇÃO');
                 $event->menu->add(
                     [
                         'text' =>   'Home',
-                        'url'  =>   route('home'),
+                        'url'  =>   route('pessoaJuridica.home'),
                         'icon' =>   'home',
               
                     ],
@@ -99,21 +98,19 @@ class AuthServiceProvider extends ServiceProvider
                         'icon' => 'user',
                         'submenu' => [
                             [
-                                'text'    => 'Cadastrar',
+                                'text'    => 'Cadastro',
                                 'icon' => '',
-                                'url'  => 'PessoaJuridica/cadastrar',
+                                'url'  => 'ASD',
                             ],
             
                             [
                                 'text' => 'Atualizar',
                                 'icon' => '',
-                                'url'  => 'PessoaJuridica/Atualizar',
+                                'url'  => 'ASD',
                             ],
                         ],
                     ]
                 );
-
-                // dd($event->menu);
             }
         });
     }

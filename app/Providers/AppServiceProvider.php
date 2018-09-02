@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Providers;
+namespace ccult\Providers;
 
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Schema;

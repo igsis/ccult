@@ -87,19 +87,19 @@ return [
     'providers' => [
         'users' => [
             'driver' => 'eloquent',
-            'model' => App\Models\User::class,
+            'model' => ccult\Models\User::class,
         ],
 
         //providers
 
         'pessoa_fisicas' => [
             'driver' => 'eloquent',
-            'model' => App\Models\PessoaFisica::class,
+            'model' => ccult\Models\PessoaFisica::class,
         ],
 
         'pessoa_juridicas' => [
             'driver' => 'eloquent',
-            'model' => App\Models\PessoaJuridica::class,
+            'model' => ccult\Models\PessoaJuridica::class,
         ],
     ],
 

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Models;
+namespace ccult\Models;
 
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -22,17 +22,21 @@ class PessoaFisica extends Authenticatable
         'cpf',
         'passaporte',
         'data_nascimento',
-        'email'
+        'email',
+        'updated_at'
     ];
 
-
-
-    /**
-     * The attributes that should be hidden for arrays.
-     *
-     * @var array
-     */
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+    public function endereco()
+    {
+        return $this->hasOne(PfEndereco::class);
+    }
+
+    public function telefones()
+    {
+        return $this->hasMany(PfTelefone::class);
+    }
 }
