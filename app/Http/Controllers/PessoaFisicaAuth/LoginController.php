@@ -32,12 +32,12 @@ class LoginController extends Controller
     {
         $this->validate($request,[
             'cpf' => 'required|min:11',
-            // 'email' => 'required|email',
+            'email' => 'required|email',
             'password' => 'required|min:6'
         ]);
         $credential = [
             'cpf' => $request->email,
-            // 'email' => $request->email,
+            'email' => $request->email,
             'password' => $request->password
         ];
 
@@ -45,11 +45,11 @@ class LoginController extends Controller
             return redirect()->route('pessoaFisica.home');
         }
 
-        if(Auth::guard('web')->attempt($credential, $request->menber)){
-            return redirect()->route('home');
-        }
+        // if(Auth::guard('web')->attempt($credential, $request->menber)){
+        //     return redirect()->route('home');
+        // }
 
-        return redirect()->back()->withInput($request->only('email', 'remember'));
+        return redirect()->back()->withInput($request->only('email', 'cpf', 'remember'));
     }
 
     

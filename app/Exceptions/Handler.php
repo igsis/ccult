@@ -26,46 +26,33 @@ class Handler extends ExceptionHandler
         'password_confirmation',
     ];
 
-    /**
-     * Report or log an exception.
-     *
-     * @param  \Exception  $exception
-     * @return void
-     */
     public function report(Exception $exception)
     {
         parent::report($exception);
     }
 
-    /**
-     * Render an exception into an HTTP response.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \Exception  $exception
-     * @return \Illuminate\Http\Response
-     */
     public function render($request, Exception $exception)
     {
-        if($request->expectsJson()) {
-            return response()->json(['message' =>  $exception->getMessage()],401);
-        }
-        $guard = array_get($exception->guards(), 0);
-        
-        switch ($guard) {
-            case 'pessoaFisica':
-                $login = 'pessoaFisica.formLogin';
-                break;
-            case 'pessoaJuridica':
-                $login = 'pessoaJuridica.formLogin';
-                break;
-            default:
-                $login = 'login';
-                break;
-        }
+        $class = get_class($exception);
 
-        return redirect()->guest(route($login));        
+        switch($class) {
+            case 'Illuminate\Auth\AuthenticationException':
+                $guard = array_get($exception->guards(), 0);
+                switch ($guard) {
+                    case 'pessoaFisica':
+                    $login = 'pessoaFisica.formLogin';
+                        break;
+                    case 'pessoaJuridica':
+                        $login = 'pessoaJuridica.formLogin';
+                            break;
+                    default:
+                        $login = 'login';
+                        break;
+                }
+    
+                return redirect()->route($login);
+        }
+    
+        return parent::render($request, $exception);     
     }
-
-
-
 }

@@ -44,11 +44,11 @@ class LoginController extends Controller
             return redirect()->route('pessoaJuridica.home');
         }
 
-        if(Auth::guard('web')->attempt($credential, $request->menber)){
-            return redirect()->route('home');
-        }
+        // if(Auth::guard('web')->attempt($credential, $request->menber)){
+        //     return redirect()->route('home');
+        // }
 
-        return redirect()->back()->withInput($request->only('email', 'remember'));
+        return redirect()->back()->withInput($request->only('cnpj', 'remember'));
     }
 
 }
