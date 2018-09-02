@@ -17,6 +17,11 @@ class LoginController extends Controller
     {
         $this->middleware('guest:pessoaFisica')->except('logout');
     }
+
+    public function username()
+    {
+        return 'cpf';
+    }
   
     public function showLoginForm()
     {
@@ -26,11 +31,13 @@ class LoginController extends Controller
     public function login(Request $request)
     {
         $this->validate($request,[
-            'email' => 'required|email',
+            'cpf' => 'required|min:11',
+            // 'email' => 'required|email',
             'password' => 'required|min:6'
         ]);
         $credential = [
-            'email' => $request->email,
+            'cpf' => $request->email,
+            // 'email' => $request->email,
             'password' => $request->password
         ];
 

@@ -42,11 +42,11 @@ class RedirectIfAuthenticated
         $guard = array_get($exception->guards(), 0);
         switch ($guard) {
             case 'pessoaFisica':
-                $login = 'pessoaFisica.login';
+                $login = 'pessoaFisica.formLogin';
                 break;
 
             case 'pessoaJuridica':
-                $login = 'pessoaJuridica.login';
+                $login = 'pessoaJuridica.formLogin';
                 break;
             
             default:

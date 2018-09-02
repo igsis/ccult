@@ -54,20 +54,6 @@
 	    				<input type="email" class="form-control" name="email" placeholder='example@email.com'>
 	    			</div>
 	    		</div>
-    			<div class="form-group has-feedback {{ $errors->has('senha') ? ' has-error' : '' }}">
-    				<label for="senha">Senha</label>
-    				<div class="input-group">
-    					<span class="input-group-addon"><i class="fa fa-lock"></i></span>
-    					<input type="password" class="form-control" name="senha" id="" placeholder="********">
-    				</div>
-    			</div>
-    			<div class="form-group">
-    				<label for="senha">Confirmar Senha</label>
-    				<div class="input-group">
-    					<span class="input-group-addon"><i class="fa fa-lock"></i></span>
-    					<input type="password" class="form-control" name="confirmaSenha" id="" placeholder="********">
-    				</div>
-    			</div>
     			<div class="form-group has-feedback {{ $errors->has('documento') ? ' has-error' : '' }}">
     				<label for="">Documento?</label>
     				<input type="file" name="documento" id="">

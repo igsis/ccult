@@ -12,7 +12,9 @@ class PessoaFisica extends Authenticatable
     protected $guard = 'pessoaFisica';   
 
     protected $fillable = [
-        'name', 'email', 'password', 
+        'nome', 
+        'email', 
+        'password', 
         'nome_social',
         'nome_artistico',
         'nome_artistico',
@@ -22,7 +24,6 @@ class PessoaFisica extends Authenticatable
         'cpf',
         'passaporte',
         'data_nascimento',
-        'email',
         'updated_at'
     ];
 

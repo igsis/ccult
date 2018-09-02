@@ -8,7 +8,7 @@
 @stop
 
 @section('content')
-    <p>You are logged in!</p>
-    {{auth()->user()->email}}
+    <p>You are logged in! pf</p>
+
 @stop
 

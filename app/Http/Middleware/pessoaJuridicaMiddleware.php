@@ -24,10 +24,10 @@ class pessoaJuridicaMiddleware
         switch($guard)
         {
             case 'pessoaFisica':
-                $login = 'pessoaFisica.login';
+                $login = 'pessoaFisica.formLogin';
                 break;
             case 'pessoaJuridica':
-                $login = 'pessoaJuridica.login';
+                $login = 'pessoaJuridica.formLogin';
                 break;
             default:
                 $login = 'login';

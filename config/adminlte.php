@@ -58,7 +58,7 @@ return [
     |
     */
 
-    'layout' => null,
+    'layout' => 'fixed',
 
     /*
     |--------------------------------------------------------------------------
@@ -108,49 +108,7 @@ return [
     */
 
     'menu' => [
-        // 'MAIN NAVIGATION',
-        // [
-        //     'text'        => 'Home',
-        //     'url'         => '/home',
-        //     'icon'        => 'home',
-        // ],
-        // 'ACCOUNT SETTINGS',
-        // [
-        //     'text' => 'Pessoa Física',
-        //     'url'  => 'PessoaFisica',
-        //     'icon' => 'user',
-        //     'submenu' => [
-        //         [
-        //             'text'    => 'Cadastrar',
-        //             'icon' => '',
-        //             'url'  => 'PessoaFisica/cadastrar',
-        //         ],
-
-        //         [
-        //             'text' => 'Atualizar',
-        //             'icon' => '',
-        //             'url'  => 'PessoaFisica/Atualizar',
-        //         ],
-        //     ],
-        // ],
-        //  [
-        //     'text' => 'Pessoa Jurídica',
-        //     'url'  => 'PessoaJuridica',
-        //     'icon' => 'user',
-        //     'submenu' => [
-        //         [
-        //             'text'    => 'Cadastrar',
-        //             'icon' => '',
-        //             'url'  => 'PessoaJuridica/cadastrar',
-        //         ],
-
-        //         [
-        //             'text' => 'Atualizar',
-        //             'icon' => '',
-        //             'url'  => 'PessoaJuridica/Atualizar',
-        //         ],
-        //     ],
-        // ],
+        // menu fixo, exemplo "Manual"
     ],
 
     /*
