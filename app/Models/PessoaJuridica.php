@@ -12,7 +12,9 @@ class PessoaJuridica extends Authenticatable
     protected $guard = 'pessoaJuridica';
 
     protected $fillable = [
-        'name', 'email', 'password',
+        'razao_social',
+        'email',
+        'password',
         'nome_social',
         'nome_artistico',
         'documento_tipo_id',

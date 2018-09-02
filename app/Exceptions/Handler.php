@@ -46,7 +46,26 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Exception $exception)
     {
-        return parent::render($request, $exception);
+        if($request->expectsJson()) {
+            return response()->json(['message' =>  $exception->getMessage()],401);
+        }
+        $guard = array_get($exception->guards(), 0);
+        
+        switch ($guard) {
+            case 'pessoaFisica':
+                $login = 'pessoaFisica.formLogin';
+                break;
+            case 'pessoaJuridica':
+                $login = 'pessoaJuridica.formLogin';
+                break;
+            default:
+                $login = 'login';
+                break;
+        }
+
+        return redirect()->guest(route($login));        
     }
+
+
 
 }

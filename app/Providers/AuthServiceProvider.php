@@ -26,6 +26,7 @@ class AuthServiceProvider extends ServiceProvider
         
         $events->listen(BuildingMenu::class, function (BuildingMenu $event) {
             # Menu para Users
+            // dd($event);
             if(auth()->guard('web')->user())
             {
                 $event->menu->add('MENU DE NAVEGAÇÃO');

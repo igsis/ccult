@@ -18,6 +18,11 @@ class LoginController extends Controller
         $this->middleware('guest:pessoaJuridica')->except('logout');
     }
 
+    public function username()
+    {
+        return 'cnpj';
+    }
+
     public function showLoginForm()
     {
         return view('pessoaJuridicaAuth.login'); 
@@ -26,11 +31,12 @@ class LoginController extends Controller
     public function login(Request $request)
     {
         $this->validate($request,[
-            'email' => 'required|email',
+            // 'email' => 'required|email',
+            'cnpj' => 'required|min:6',
             'password' => 'required|min:6'
         ]);
         $credential = [
-            'email' => $request->email,
+            'cnpj' => $request->email,
             'password' => $request->password
         ];
 
