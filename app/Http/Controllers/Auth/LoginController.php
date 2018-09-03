@@ -24,7 +24,15 @@ class LoginController extends Controller
 
             'email' => 'required|email',
             'password' => 'required|min:6'
-        ]);
+        ], 
+        [
+            'required' => 'O campo :attribute é obrigatório',
+        ], [
+            'name'      => 'Nome',
+            'email'     => 'E-mail',
+            'password'  => 'Senha',
+        ]); 
+        
         $credential = [
             'email' => $request->email,
             'password' => $request->password

@@ -26,6 +26,13 @@ class RegisterController extends Controller
             'nome' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users',
             'password' => 'required|string|min:6|confirmed',
+        ],
+        [
+            'required' => 'O campo :attribute é obrigatório',
+        ], [
+            'nome'      => 'Nome',
+            'email'     => 'E-mail',
+            'password'  => 'Senha',
         ]);
     }
 

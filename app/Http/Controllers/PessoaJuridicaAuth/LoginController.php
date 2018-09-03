@@ -34,7 +34,15 @@ class LoginController extends Controller
             // 'email' => 'required|email',
             'cnpj' => 'required|min:6',
             'password' => 'required|min:6'
+        ],
+        [
+            'required' => 'O campo :attribute é obrigatório',
+        ], 
+        [
+            'cnpj'              => 'CNPJ',
+            'password'          => 'Senha',
         ]);
+
         $credential = [
             'cnpj' => $request->cnpj,
             'password' => $request->password

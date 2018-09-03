@@ -26,7 +26,7 @@
                     <span class="glyphicon glyphicon- form-control-feedback"></span>
                     @if ($errors->has('razao_social'))
                         <span class="help-block">
-                            <strong>{{ $errors->first('Razão Social') }}</strong>
+                            <strong>{{ $errors->first('razao_social') }}</strong>
                         </span>
                     @endif
                 </div>
@@ -37,7 +37,7 @@
                     <span class="glyphicon glyphicon- form-control-feedback"></span>
                     @if ($errors->has('cnpj'))
                         <span class="help-block">
-                            <strong>{{ $errors->first('CNPJ') }}</strong>
+                            <strong>{{ $errors->first('cnpj') }}</strong>
                         </span>
                     @endif
                 </div>

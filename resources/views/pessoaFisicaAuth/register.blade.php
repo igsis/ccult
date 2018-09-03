@@ -37,7 +37,7 @@
                     <span class="glyphicon glyphicon-ser form-control-feedback"></span>
                     @if ($errors->has('cpf'))
                         <span class="help-block">
-                            <strong>{{ $errors->first('CPF') }}</strong>
+                            <strong>{{ $errors->first('cpf') }}</strong>
                         </span>
                     @endif
                 </div>
@@ -48,7 +48,7 @@
                     <span class="glyphicon glyphicon- form-control-feedback"></span>
                     @if ($errors->has('rg_rne'))
                         <span class="help-block">
-                            <strong>{{ $errors->first('RG - RNE') }}</strong>
+                            <strong>{{ $errors->first('rg_rne') }}</strong>
                         </span>
                     @endif
                 </div>     
@@ -59,7 +59,7 @@
                     <span class="glyphicon glyphicon- form-control-feedback"></span>
                     @if ($errors->has('data_nascimento'))
                         <span class="help-block">
-                            <strong>{{ $errors->first('Data de Nascimento') }}</strong>
+                            <strong>{{ $errors->first('data_nascimento') }}</strong>
                         </span>
                     @endif
                 </div>  

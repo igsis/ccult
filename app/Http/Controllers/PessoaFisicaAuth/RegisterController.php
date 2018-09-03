@@ -34,6 +34,17 @@ class RegisterController extends Controller
             'cpf' => 'required|string|min:11',
             'rg_rne' => 'required|string|min:6',
             'data_nascimento'  => 'required',
+        ],
+        [
+            'required' => 'O campo :attribute é obrigatório',
+        ], 
+        [
+            'nome'              => 'Nome',
+            'email'             => 'E-mail',
+            'password'          => 'Senha',
+            'cpf'               => 'CPF',
+            'rg_rne'            => 'RG - RNE',
+            'data_nascimento'   => 'Data de Nascimento',
         ]);
     }
 

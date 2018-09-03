@@ -31,6 +31,15 @@ class RegisterController extends Controller
             'cnpj' => 'required|min:10|unique:pessoa_juridicas',
             'email' => 'required|string|email|max:255|unique:pessoa_juridicas',
             'password' => 'required|string|min:6|confirmed',
+        ],
+        [
+            'required' => 'O campo :attribute é obrigatório',
+        ], 
+        [
+            'razao_social'      => 'Razão Social',
+            'cnpj'              => 'CNPJ',
+            'email'             => 'E-mail',
+            'password'          => 'Senha',
         ]);
     }
 
