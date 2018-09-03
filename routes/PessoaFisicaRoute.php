@@ -4,11 +4,11 @@ Route::group(['prefix' => 'PessoaFisica', 'middleware' => 'pessoaFisica'], funct
 
     Route::get('/home', 'PessoaFisicaController@index')->name('pessoaFisica.home');
 
-    Route::get('/cadastro' , 'PessoaFisicaController@formRegister')->name('pessoaFisica.formRegister');
+    Route::get('/cadastro' , 'PessoaFisicaController@show')->name('pessoaFisica.cadastro');
 
-    Route::post('/cadastro' , 'PessoaFisicaController@create')->name('pessoaFisica.create');
+    // Route::post('/cadastro' , 'PessoaFisicaController@create')->name('pessoaFisica.create');
 
-     Route::get('/atualizar' , 'PessoaFisicaController@update');
+     Route::post('/atualizar' , 'PessoaFisicaController@update')->name('pessoaFisica.atualizar');
 
     Route::put('/{id}' , 'PessoaFisicaController@update');
 

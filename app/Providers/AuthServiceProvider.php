@@ -25,8 +25,6 @@ class AuthServiceProvider extends ServiceProvider
 
         
         $events->listen(BuildingMenu::class, function (BuildingMenu $event) {
-            # Menu para Users
-            // dd($event);
             if(auth()->guard('web')->user())
             {
                 $event->menu->add('MENU DE NAVEGAÇÃO');
@@ -41,11 +39,17 @@ class AuthServiceProvider extends ServiceProvider
         $events->listen(BuildingMenu::class, function (BuildingMenu $event) {
             # Menu para Pessoas Fisicas
 
-            // Gate::define('validar', function ($user) {
-            //     return $user;
-            // });
+
             if(auth()->guard('pessoaFisica')->user())
             {              
+                Gate::define('pendecias', function ($user) {
+
+                    if((!isset($user->endereco->cep) || (!$user->telefones->count() > 0))){
+                        return $user;
+                    }
+                });
+
+
                 $event->menu->add('MENU DE NAVEGAÇÃO');
                 $event->menu->add(
                     [
@@ -54,25 +58,26 @@ class AuthServiceProvider extends ServiceProvider
                         'icon' =>   'home',
                     ],
                     [
-                        'text' =>   'Home',
-                        'url'  =>   route('pessoaFisica.home'),
-                        'icon' =>   'home',
-                        'can' => 'validar'
+                        'text'       => 'Pendências',
+                        'icon_color' => 'red',
+                        'url'        => 'asd',
+                        'can'        => 'pendecias'
                     ],
                     [
-                        'text' => 'Pessoa Física',                    
+                        'text' => 'Cadastro',                    
                         'icon' => 'user',
                         'submenu' => [
                             [
-                                'text'    => 'Cadastro',
+                                'text'    => 'Dados Princípais',
                                 'icon' => '',
-                                'url'  => route('pessoaFisica.formRegister'),
+                                'url'  => route('pessoaFisica.cadastro'),
                             ],
             
                             [
-                                'text' => 'Atualizar',
+                                'text' => 'Endereço',
                                 'icon' => '',
                                 'url'  => 'ASD',
+                                
                             ],
                         ],
                     ]

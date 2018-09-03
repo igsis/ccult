@@ -108,7 +108,7 @@ return [
     */
 
     'menu' => [
-        // menu fixo, exemplo "Manual"
+        // menu fixo, exemplo "Manual
     ],
 
     /*

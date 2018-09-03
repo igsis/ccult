@@ -20,17 +20,17 @@ class PessoaFisicaController extends Controller
      */
     public function index()
     {
-        return view('pessoaFisicaAuth.home');
+        return view('pessoaFisica.home');
     }
 
-    public function formRegister()
+    public function show()
     {
 		$id = auth()->user()->id;
 		$pessoaFisica = PessoaFisica::find($id);
         return view('pessoaFisica.cadastro', compact('pessoaFisica'));
     }
 
-    public function create(Request $request)
+    public function update(Request $request)
     {
 
 		$data = $this->validate($request, [
@@ -44,26 +44,27 @@ class PessoaFisicaController extends Controller
 			'passaporte' => 'nullable',
 			'dataNascimento' => 'required',
 			'email' => 'required',
-			'senha' => 'required'
 		]);
-		
-		PessoaFisica::create([
+
+		$id = auth()->user()->id;
+
+		$pessoaFisica = PessoaFisica::findOrFail($id);
+
+		$pessoaFisica->update([
 			'nome' => $request->nome,
 			'nome_social' => $request->nomeSocial,
 			'nome_artistico' => $request->nomeArtistico,
-			'documento_tipo_id' => $request->rgRne,
+			// 'documento_tipo_id' => $request->documento_tipo_id,
 			'rg_rne' => $request->rgRne,
 			'ccm' => $request->ccm,
-			'cpf' => $request->cpf,
 			'passaporte' => $request->passaporte,
 			'data_nascimento' => $request->dataNascimento,
 			'email' => $request->email,
 			'senha' => $request->senha,
-			'ultima_atualizacao' => Date('Y-m-d H:m:s')
 		]);
 
     	return redirect()->back()->with('flash_message',
-            'Pessoa Física Cadastrada com Sucesso');
+            'Seus Dados Foram Atualizados Com Sucesso!');
 
     }
 }
