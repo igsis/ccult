@@ -10,7 +10,7 @@
  
     <div class="box box-primary">
     	<div class="box-header with-border">
-    		<h3 class="box-title">Cadastro de Pessoa Física</h3>
+    		<h3 class="box-title">Seu Cadastro</h3>
     	</div>
 
     	<form role="form" method="post" action="{{route('pessoaFisica.atualizar')}}">
@@ -42,7 +42,7 @@
     			</div>
     			<div class="form-group">
     				<label for="">CPF</label>
-    				<input type="text" class="form-control" value="{{ $pessoaFisica->cpf }}" disabled>
+    				<input type="text" class="form-control" id="CPF" value="{{ $pessoaFisica->cpf }}" disabled>
     			</div>
     			<div class="form-group has-feedback {{ $errors->has('dataNascimento') ? ' has-error' : '' }}">
     				<label for="">Data de Nascimento</label>
@@ -70,4 +70,16 @@
     	</form>
     </div>
     	
+@stop
+
+@section('js')
+    <script src="{{asset('js/jquery-1.12.4.min.js')}}"></script>
+    <script src="{{asset('js/jquery.mask.js')}}"></script>
+
+    <script>
+        $(document).ready(function () { 
+            let $seuCampoCpf = $("#CPF");
+            $seuCampoCpf.mask('000.000.000-00', {reverse: true});
+        });
+    </script>
 @stop

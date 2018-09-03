@@ -32,7 +32,7 @@
                 </div>
 
                 <div class="form-group has-feedback {{ $errors->has('cnpj') ? 'has-error' : '' }}">
-                    <input type="text" name="cnpj" class="form-control" value="{{ old('cnpj') }}"
+                 <input type="text" name="cnpj" id="CNPJ" class="form-control" value="{{ old('cnpj') }}"
                            placeholder="CNPJ">
                     <span class="glyphicon glyphicon- form-control-feedback"></span>
                     @if ($errors->has('cnpj'))
@@ -86,5 +86,16 @@
 @stop
 
 @section('adminlte_js')
+
+    <script src="{{asset('js/jquery-1.12.4.min.js')}}"></script>
+    <script src="{{asset('js/jquery.mask.js')}}"></script>
+
+    <script>
+        $(document).ready(function () { 
+            let $seuCampoCnpj = $("#CNPJ");
+            $seuCampoCnpj.mask('99.999.999/9999-99', {reverse: true});
+        });
+    </script>
+
     @yield('js')
 @stop

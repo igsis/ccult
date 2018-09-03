@@ -32,7 +32,7 @@ class LoginController extends Controller
     {
         $this->validate($request,[
             // 'email' => 'required|email',
-            'cnpj' => 'required|min:6',
+            'cnpj' => 'required|min:18',
             'password' => 'required|min:6'
         ],
         [

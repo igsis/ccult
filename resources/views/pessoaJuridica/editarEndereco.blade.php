@@ -15,7 +15,7 @@
     		<h3 class="box-title">Telefones</h3>
     	</div>
 
-    	<form role="form" method="post" action="{{route('pessoaFisica.atualizarEndereco')}}">
+    	<form role="form" method="post" action="{{route('pessoaJuridica.atualizarEndereco')}}">
     		{{ csrf_field() }}
     		<div class="box-body">
                 <div class="row">

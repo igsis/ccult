@@ -15,7 +15,7 @@
     		<h3 class="box-title">Telefones</h3>
     	</div>
 
-    	<form role="form" method="post" action="{{ route('pessoaFisica.cadastroTelefone') }}">
+    	<form role="form" method="post" action="{{ route('pessoaJuridica.cadastroTelefone') }}">
     		{{ csrf_field() }}
     		<div class="box-body">
                 <div class="row">

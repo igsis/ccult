@@ -13,6 +13,7 @@ class PjEndereco extends Model
         'bairro',
         'cidade',
         'estado',
+        'uf',
         'cep'
     ];
     

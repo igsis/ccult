@@ -4,10 +4,11 @@
 
 
 @section('content_header')
-    <h1>Bem vindo, {{auth()->user()->nome}}! </h1>
+    <h1>Bem vindo!</h1>
 @stop
 
 @section('content')
+    <h3>Razão Social - {{auth()->user()->razao_social}}! </h3>
     <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. 
         Possimus velit architecto illo optio eum, provident voluptatem asperiores 
         voluptates saepe ipsam repellendus consequatur 

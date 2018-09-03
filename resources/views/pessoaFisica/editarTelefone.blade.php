@@ -40,7 +40,6 @@
 @stop
 
 @section('js')
-    <script> console.log('Hi!, I am Goku!'); </script>
     @include('scripts.busca_cep')
     <script src="{{asset('js/jquery-1.12.4.min.js')}}"></script>
     <script src="{{asset('js/jquery.mask.js')}}"></script>

@@ -1,7 +1,7 @@
 
 @extends('adminlte::page')
 
-@section('title', 'Telefones')
+@section('title', 'Endereço')
 
 
 @section('content_header')
@@ -15,23 +15,23 @@
     		<h3 class="box-title">Telefones</h3>
     	</div>
 
-    	<form role="form" method="post" action="{{ route('pessoaFisica.cadastroTelefone') }}">
+    	<form role="form" method="post" action="{{ route('pessoaJuridica.atualizaTelefone') }}">
     		{{ csrf_field() }}
     		<div class="box-body">
                 <div class="row">
                     <div class="form-group col-md-4">
                         <label for="telefone">Telefone</label>
-                        <input type="text" class="form-control" name="telefone" id="telefone" data-mask="(00) 0000-0000" placeholder="(11) xxxx-xxxx" value="{{ old('telefone') }}">
+                        <input type="text" class="form-control" name="telefone" id="telefone" data-mask="(00) 0000-0000"  placeholder="(11) xxxx-xxxx" value="{{ $tel->telefone }}">
                     </div>
                     <div class="form-group col-md-4">
                         <label for="telefone">Celular</label>
-                        <input type="text" class="form-control" name="celular" id="telefone" data-mask="(00) 00000-0000" placeholder="(11) xxxx-xxxx" value="{{ old('celular') }}">
+                        <input type="text" class="form-control" name="celular" id="telefone" data-mask="(00) 00000-0000" placeholder="(11) xxxx-xxxx" value="{{ $tel->celular }}">
                     </div>
                 </div>  
 			
 
                 <div class="box-footer">
-                    <button type="submit" class="btn btn-primary">Cadastrar Telefone</button>
+                    <button type="submit" class="btn btn-primary">Atualizar Telefone</button>
                 </div>
             </div>
     	</form>

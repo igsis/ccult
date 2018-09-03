@@ -38,8 +38,6 @@ class AuthServiceProvider extends ServiceProvider
 
         $events->listen(BuildingMenu::class, function (BuildingMenu $event) {
             # Menu para Pessoas Fisicas
-
-
             if(auth()->guard('pessoaFisica')->user())
             {              
                 Gate::define('pendecias', function ($user) {
@@ -60,7 +58,7 @@ class AuthServiceProvider extends ServiceProvider
                     [
                         'text'       => 'Pendências',
                         'icon_color' => 'red',
-                        'url'        => 'asd',
+                        'url'        => 'pendecias',
                         'can'        => 'pendecias'
                     ],
                     [
@@ -86,36 +84,52 @@ class AuthServiceProvider extends ServiceProvider
                     ]
                 );
             }
-
         });
 
         # Menu para Pessoas Fisicas
         $events->listen(BuildingMenu::class, function (BuildingMenu $event) {
             # Menu para Pessoas Fisicas
             if(auth()->guard('pessoaJuridica')->user())
-            {
+            {              
+                Gate::define('pendecias', function ($user) {
+
+                    if((!isset($user->endereco->cep) || (!$user->telefones->count() > 0))){
+                        return $user;
+                    }
+                });
+
+
                 $event->menu->add('MENU DE NAVEGAÇÃO');
                 $event->menu->add(
                     [
                         'text' =>   'Home',
                         'url'  =>   route('pessoaJuridica.home'),
                         'icon' =>   'home',
-              
                     ],
                     [
-                        'text' => 'Pessoa Jurídica',
+                        'text'       => 'Pendências',
+                        'icon_color' => 'red',
+                        'url'        => 'pendecias',
+                        'can'        => 'pendecias'
+                    ],
+                    [
+                        'text' => 'Cadastro',                    
                         'icon' => 'user',
                         'submenu' => [
                             [
-                                'text'    => 'Cadastro',
+                                'text'    => 'Dados Princípais',
                                 'icon' => '',
-                                'url'  => 'ASD',
-                            ],
-            
+                                'url'  => route('pessoaJuridica.cadastro'),
+                            ],            
                             [
-                                'text' => 'Atualizar',
+                                'text' => 'Endereço',
                                 'icon' => '',
-                                'url'  => 'ASD',
+                                'url'  => route('pessoaJuridica.formEndereco'),                                
+                            ],                                    
+                            [
+                                'text' => 'Telefones',
+                                'icon' => '',
+                                'url'  => route('pessoaJuridica.formTelefones'),                                
                             ],
                         ],
                     ]

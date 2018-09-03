@@ -31,7 +31,7 @@ class LoginController extends Controller
     public function login(Request $request)
     {
         $this->validate($request,[
-            'cpf' => 'required|min:11',
+            'cpf' => 'required|min:14',
             'password' => 'required|min:6'
         ],
         [

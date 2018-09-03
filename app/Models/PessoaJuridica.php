@@ -33,4 +33,14 @@ class PessoaJuridica extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+    public function endereco()
+    {
+        return $this->hasOne(PjEndereco::class);
+    }
+
+    public function telefones()
+    {
+        return $this->hasMany(PjTelefone::class);
+    }
 }

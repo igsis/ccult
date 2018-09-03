@@ -32,7 +32,7 @@
                 </div>
 
                 <div class="form-group has-feedback {{ $errors->has('cpf') ? 'has-error' : '' }}">
-                    <input type="text" name="cpf" class="form-control" value="{{ old('cpf') }}"
+                    <input type="text" name="cpf" id="CPF" class="form-control" value="{{ old('cpf') }}"
                            placeholder="CPF">
                     <span class="glyphicon glyphicon-ser form-control-feedback"></span>
                     @if ($errors->has('cpf'))
@@ -108,5 +108,14 @@
 @stop
 
 @section('adminlte_js')
+    <script src="{{asset('js/jquery-1.12.4.min.js')}}"></script>
+    <script src="{{asset('js/jquery.mask.js')}}"></script>
+
+    <script>
+        $(document).ready(function () { 
+            let $seuCampoCpf = $("#CPF");
+            $seuCampoCpf.mask('000.000.000-00', {reverse: true});
+        });
+    </script>
     @yield('js')
 @stop
