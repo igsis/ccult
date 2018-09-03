@@ -32,20 +32,17 @@ class LoginController extends Controller
     {
         $this->validate($request,[
             'cpf' => 'required|min:11',
-            'email' => 'required|email',
             'password' => 'required|min:6'
         ],
         [
             'required' => 'O campo :attribute é obrigatório',
         ], [
             'cpf'      => 'CPF',
-            'email'     => 'E-mail',
             'password'  => 'Senha',
         ]);
-        
+
         $credential = [
-            'cpf' => $request->email,
-            'email' => $request->email,
+            'cpf' => $request->cpf,
             'password' => $request->password
         ];
 
@@ -57,7 +54,7 @@ class LoginController extends Controller
         //     return redirect()->route('home');
         // }
 
-        return redirect()->back()->withInput($request->only('email', 'cpf', 'remember'));
+        return redirect()->back()->withInput($request->only('cpf', 'remember'));
     }
 
     
