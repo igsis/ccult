@@ -7,7 +7,9 @@ use Illuminate\Database\Eloquent\Model;
 class PjTelefone extends Model
 {
     protected $fillable = [
-    	'telefone',
+        'pessoa_juridica_id',
+        'telefone',
+        'celular',
     	'publicado'
     ];
 

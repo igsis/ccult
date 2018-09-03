@@ -4,6 +4,7 @@ namespace ccult\Http\Controllers;
 
 use Illuminate\Http\Request;
 use ccult\Models\PfEndereco;
+use ccult\Models\PfTelefone;
 use ccult\Models\PessoaFisica;
 
 class PessoaFisicaController extends Controller
@@ -66,5 +67,172 @@ class PessoaFisicaController extends Controller
     	return redirect()->back()->with('flash_message',
             'Seus Dados Foram Atualizados Com Sucesso!');
 
-    }
+	}
+	
+	public function endereco()
+	{
+		if (!isset(auth()->user()->endereco->cep)){
+			return view('pessoaFisica.cadastroEndereco');
+		}
+		
+		$id = auth()->user()->id;
+		$endereco = PfEndereco::where('pessoa_fisica_id', '=', $id)->first();
+
+		return view('pessoaFisica.editarEndereco', compact('endereco'));
+	}
+
+	public function cadastroEndereco(Request $request)
+	{
+		$id = auth()->user()->id;
+		$pf = PessoaFisica::findOrFail($id);
+
+		$this->validate($request, [
+			'cep'=>'required',
+			'logradouro'=>'nullable',
+			'bairro'=>'nullable',
+			'numero'=>'required|numeric',
+			'complemento'=>'nullable',
+			'cidade'=>'nullable',
+			'uf'=>'nullable|max:2',
+		]);
+
+		$pf->endereco()->create([
+			'pessoa_fisica_id' => $id,
+			'cep' => $request->cep,
+			'logradouro' => $request->logradouro,
+			'numero' => $request->numero,
+			'complemento' => $request->complemento,
+			'bairro' => $request->bairro,
+			'cidade' => $request->cidade,
+			'uf' => $request->uf
+		]);
+
+		return redirect()->route('pessoaFisica.formEndereco')->with('flash_message',
+		'Seu Endereço Foi Cadastrado Com Sucesso!');
+	}
+
+	public function atualizarEndereco(Request $request)
+	{
+		$id = auth()->user()->id;
+		$pf = PessoaFisica::findOrFail($id);
+
+		$this->validate($request, [
+			'cep'=>'required',
+			'logradouro'=>'nullable',
+			'bairro'=>'nullable',
+			'numero'=>'required|numeric',
+			'complemento'=>'nullable',
+			'cidade'=>'nullable',
+			'uf'=>'nullable|max:2',
+		]);
+
+		$pf->endereco()->update([
+			'pessoa_fisica_id' => $id,
+			'cep' => $request->cep,
+			'logradouro' => $request->logradouro,
+			'numero' => $request->numero,
+			'complemento' => $request->complemento,
+			'bairro' => $request->bairro,
+			'cidade' => $request->cidade,
+			'uf' => $request->uf
+		]);
+
+		return redirect()->route('pessoaFisica.formEndereco')->with('flash_message',
+		'Seu Endereço Foi Atualizado Com Sucesso!');
+	}
+
+	public function formTelefones()
+	{
+		$id = auth()->user()->id;
+
+		if(auth()->user()->telefones->count() > 0){
+			$tel = PfTelefone::where('pessoa_fisica_id', $id)->first();
+			// dd($tel->telefone);
+			return view('pessoaFisica.editarTelefone', compact('tel'));
+
+		}
+		return view('pessoaFisica.cadastroTelefone');
+	}
+
+	public function cadastroTelefone(Request $request)
+	{
+		$id = auth()->user()->id;
+
+		$this->validate($request, [
+			'telefone' =>'required_without:celular',
+			'celular'  =>'required_without:telefone',
+		]);
+
+		if ($request->celular && $request->telefone){
+			PfTelefone::create([
+				'pessoa_fisica_id'	=> $id,
+				'telefone' 		  	=> $request->telefone,
+				'celular' 		  	=> $request->celular
+			]);
+
+			return redirect()->route('pessoaFisica.formTelefones')->with('flash_message',
+			'Telefones Cadastrados Com Sucesso!');
+
+		}elseif ($request->celular && !$request->telefone) {
+			PfTelefone::create([
+				'pessoa_fisica_id'	=> $id,
+				'celular' 		  	=> $request->celular
+			]);
+
+			return redirect()->route('pessoaFisica.formTelefones')->with('flash_message',
+			'Celular cadastrado com Sucesso!');
+		}
+		elseif (!$request->celular && $request->telefone) {
+			PfTelefone::create([
+				'pessoa_fisica_id'	=> $id,
+				'telefone' 		  	=> $request->telefone,
+			]);
+
+			return redirect()->route('pessoaFisica.formTelefones')->with('flash_message',
+			'Telefone cadastrado com Sucesso!');
+		}
+	}
+	public function atualizaTelefone(Request $request)
+	{
+	
+		$id = auth()->user()->id;
+
+		$this->validate($request, [
+			'telefone' =>'required_without:celular',
+			'celular'  =>'required_without:telefone',
+		]);
+		$telefone = PfTelefone::where('pessoa_fisica_id', $id)->first();
+
+		if ($request->celular && $request->telefone){
+			$telefone->update([
+				'pessoa_fisica_id'	=> $id,
+				'telefone' 		  	=> $request->telefone,
+				'celular' 		  	=> $request->celular
+			]);
+
+			return redirect()->route('pessoaFisica.formTelefones')->with('flash_message',
+			'Telefones Atualizados Com Sucesso!');
+
+		}elseif ($request->celular && !$request->telefone) {
+			$telefone->update([
+				'pessoa_fisica_id'	=> $id,
+				'telefone' 		  	=> '',
+				'celular' 		  	=> $request->celular
+			]);
+
+			return redirect()->route('pessoaFisica.formTelefones')->with('flash_message',
+			'Celular Atualizado com Sucesso!');
+		}
+		elseif (!$request->celular && $request->telefone) {
+			$telefone->update([
+				'pessoa_fisica_id'	=> $id,
+				'telefone' 		  	=> $request->telefone,
+				'celular' 		  	=> ''
+			]);
+
+			return redirect()->route('pessoaFisica.formTelefones')->with('flash_message',
+			'Telefone Atualizado com Sucesso!');
+		}
+	}
+	
 }

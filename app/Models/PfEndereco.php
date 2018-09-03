@@ -7,13 +7,14 @@ use Illuminate\Database\Eloquent\Model;
 class PfEndereco extends Model
 {
     protected $fillable = [
+        'pessoa_fisica_id',
         'logradouro',
         'numero',
         'complemento',
         'bairro',
         'cidade',
-        'estado',
-        'cep'
+        'uf',
+        'cep',
     ];
     
     public $timestamps = false;

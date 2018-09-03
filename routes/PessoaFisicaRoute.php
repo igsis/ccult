@@ -6,9 +6,19 @@ Route::group(['prefix' => 'PessoaFisica', 'middleware' => 'pessoaFisica'], funct
 
     Route::get('/cadastro' , 'PessoaFisicaController@show')->name('pessoaFisica.cadastro');
 
-    // Route::post('/cadastro' , 'PessoaFisicaController@create')->name('pessoaFisica.create');
+    Route::post('/atualizar' , 'PessoaFisicaController@update')->name('pessoaFisica.atualizar');
 
-     Route::post('/atualizar' , 'PessoaFisicaController@update')->name('pessoaFisica.atualizar');
+    Route::get('/endereco' , 'PessoaFisicaController@endereco')->name('pessoaFisica.formEndereco');
+
+    Route::post('/cadastroEndereco' , 'PessoaFisicaController@cadastroEndereco')->name('pessoaFisica.cadastroEndereco');
+
+    Route::post('/atualizarEndereco' , 'PessoaFisicaController@atualizarEndereco')->name('pessoaFisica.atualizarEndereco');
+
+    Route::get('/telefones' , 'PessoaFisicaController@formTelefones')->name('pessoaFisica.formTelefones');
+
+    Route::post('/cadastroTelefone' , 'PessoaFisicaController@cadastroTelefone')->name('pessoaFisica.cadastroTelefone');
+
+    Route::post('/atualizaTelefone' , 'PessoaFisicaController@atualizaTelefone')->name('pessoaFisica.atualizaTelefone');
 
     Route::put('/{id}' , 'PessoaFisicaController@update');
 

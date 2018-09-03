@@ -71,13 +71,16 @@ class AuthServiceProvider extends ServiceProvider
                                 'text'    => 'Dados Princípais',
                                 'icon' => '',
                                 'url'  => route('pessoaFisica.cadastro'),
-                            ],
-            
+                            ],            
                             [
                                 'text' => 'Endereço',
                                 'icon' => '',
-                                'url'  => 'ASD',
-                                
+                                'url'  => route('pessoaFisica.formEndereco'),                                
+                            ],                                    
+                            [
+                                'text' => 'Telefones',
+                                'icon' => '',
+                                'url'  => route('pessoaFisica.formTelefones'),                                
                             ],
                         ],
                     ]
