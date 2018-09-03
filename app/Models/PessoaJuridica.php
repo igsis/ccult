@@ -43,4 +43,14 @@ class PessoaJuridica extends Authenticatable
     {
         return $this->hasMany(PjTelefone::class);
     }
+
+    public function representanteLegal1()
+    {
+        return $this->belongsTo(RepresentanteLegal::class, 'representante_legal1_id');
+    }
+
+    public function representanteLegal2()
+    {
+        return $this->belongsTo(RepresentanteLegal::class, 'representante_legal2_id');
+    }
 }

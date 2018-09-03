@@ -131,7 +131,7 @@ class PessoaJuridicaController extends Controller
 
 		if(auth()->user()->telefones->count() > 0){
 			$tel = PjTelefone::where('pessoa_juridica_id', $id)->first();
-			// dd($tel->telefone);
+
 			return view('pessoaJuridica.editarTelefone', compact('tel'));
 
 		}
@@ -218,4 +218,62 @@ class PessoaJuridicaController extends Controller
 			'Telefone Atualizado com Sucesso!');
 		}
 	}
+	public function formRepresentante()
+	{
+		$rep = auth()->user()->representanteLegal1;
+
+		if(auth()->user()->representanteLegal1){
+			// dd($rep);
+			return view('pessoaJuridica.editarRepresentanteLegal', compact('rep'));
+		}
+
+		return view('pessoaJuridica.cadastroRepresentanteLegal');
+
+	}
+
+	public function cadastroRepresentante(Request $request)
+	{
+		$this->validate($request, [
+			'nome' 		=>	'required',
+			'rg_rne'  	=>	'required',
+			'cpf' 		=>	'required|unique:representante_legais|min:14'
+		]);
+
+		representanteLegal1();
+	}
+
+	public function editarRepresentante(Request $request)
+	{
+		$this->validate($request, [
+			'nome' 		=>	'required',
+			'rg_rne'  	=>	'required',
+			'cpf' 		=>	'required|unique:representante_legais|min:14'
+		]);
+	}
+
+	public function formRepresentante2()
+	{
+		return view('pessoaJuridica.cadastroRepresentanteLegal2');
+
+		return view('pessoaJuridica.editarRepresentanteLegal2');
+	}
+
+	public function cadastroRepresentante2(Request $request)
+	{
+		$this->validate($request, [
+			'nome' 		=>	'required',
+			'rg_rne'  	=>	'required',
+			'cpf' 		=>	'required|unique:representante_legais|min:14'
+		]);
+	}
+
+	public function editarRepresentante2(Request $request)
+	{
+		$this->validate($request, [
+			'nome' 		=>	'required',
+			'rg_rne'  	=>	'required',
+			'cpf' 		=>	'required|unique:representante_legais|min:14'
+		]);
+	}
+	
 }

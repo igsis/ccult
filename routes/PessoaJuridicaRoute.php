@@ -19,4 +19,16 @@ Route::group(['prefix' => 'PessoaJuridica', 'middleware' => 'pessoaJuridica'], f
     Route::post('/cadastroTelefone' , 'PessoaJuridicaController@cadastroTelefone')->name('pessoaJuridica.cadastroTelefone');
 
     Route::post('/atualizaTelefone' , 'PessoaJuridicaController@atualizaTelefone')->name('pessoaJuridica.atualizaTelefone');
+
+    Route::get('/RepresentanteLegal-1' , 'PessoaJuridicaController@formRepresentante')->name('pessoaJuridica.formRepresentante');
+
+    Route::post('/CadastroRepresentanteLegal-1' , 'PessoaJuridicaController@cadastroRepresentante')->name('pessoaJuridica.cadastroRepresentante');
+
+    Route::post('/EditarRepresentanteLegal-1' , 'PessoaJuridicaController@editarRepresentante')->name('pessoaJuridica.editarRepresentante');
+
+    Route::get('/RepresentanteLegal-2' , 'PessoaJuridicaController@formRepresentante2')->name('pessoaJuridica.formRepresentante2');
+
+    Route::post('/CadastroRepresentanteLegal-2' , 'PessoaJuridicaController@cadastroRepresentante2')->name('pessoaJuridica.cadastroRepresentante2');
+
+    Route::post('/EditarRepresentanteLegal-2' , 'PessoaJuridicaController@editarRepresentante2')->name('pessoaJuridica.editarRepresentante2');
 });        

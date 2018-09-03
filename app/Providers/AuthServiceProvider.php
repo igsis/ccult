@@ -132,6 +132,23 @@ class AuthServiceProvider extends ServiceProvider
                                 'url'  => route('pessoaJuridica.formTelefones'),                                
                             ],
                         ],
+                    ],
+                    [
+                        'text' => 'Representante Legal',                    
+                        'icon' => 'user',
+                        'submenu' => [
+                            [
+                                'text'    => 'Representante Legal 1',
+                                'icon' => '',
+                                'url'  => route('pessoaJuridica.formRepresentante'),
+                            ],            
+                            [
+                                'text' => 'Representante Legal 2',
+                                'icon' => '',
+                                'url'  => "route('pessoaJuridica.formEndereco')",                                
+                            ],                                    
+
+                        ],
                     ]
                 );
             }
