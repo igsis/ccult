@@ -97,6 +97,9 @@
                 <button type="submit"
                         class="btn btn-primary btn-block btn-flat"
                 >Cadastrar</button>
+                <a href="/"
+                        class="btn btn-default btn-block btn-flat"
+                >Voltar</a>
             </form>
             <div class="auth-links">
                 <a href="{{ route('pessoaFisica.formLogin') }}"

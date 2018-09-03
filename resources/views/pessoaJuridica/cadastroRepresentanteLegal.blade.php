@@ -10,7 +10,7 @@
  
     <div class="box box-primary">
     	<div class="box-header with-border">
-    		<h3 class="box-title">Representante Legal</h3>
+    		<h3 class="box-title">1º Representante Legal</h3>
     	</div>
 
     	<form role="form" method="post" action="{{route('pessoaJuridica.cadastroRepresentante')}}">
@@ -27,7 +27,7 @@
     			</div>
     			<div class="form-group">
     				<label for="">CPF</label>
-    				<input type="text" class="form-control" ame="cpf" id="CPF" value="{{ old('cpf')}}">
+    				<input type="text" class="form-control" name="cpf" id="CPF" value="{{ old('cpf') }}" placeholder="CPF">
     			</div>
     		</div>
 

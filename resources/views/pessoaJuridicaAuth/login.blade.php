@@ -42,19 +42,14 @@
                     @endif
                 </div>
                 <div class="row">
-                    <div class="col-xs-8">
-                        <!-- <div class="checkbox icheck">
-                            <label>
-                                <input type="checkbox" name="remember"> {{ trans('adminlte::adminlte.remember_me') }}
-                            </label>
-                        </div> -->
+                    <div class="col-xs-6">
+                        <a href="/" class="btn btn-default btn-block btn-flat"> Voltar</a>
                     </div>
-                    <!-- /.col -->
-                    <div class="col-xs-4">
+                    <div class="col-xs-6">
                         <button type="submit"
-                                class="btn btn-primary btn-block btn-flat">{{ trans('adminlte::adminlte.sign_in') }}</button>
+                                class="btn btn-primary btn-block btn-flat">{{ trans('adminlte::adminlte.sign_in') }}
+                        </button>
                     </div>
-                    <!-- /.col -->
                 </div>
             </form>
             <div class="auth-links">

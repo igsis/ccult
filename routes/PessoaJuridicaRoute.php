@@ -31,4 +31,9 @@ Route::group(['prefix' => 'PessoaJuridica', 'middleware' => 'pessoaJuridica'], f
     Route::post('/CadastroRepresentanteLegal-2' , 'PessoaJuridicaController@cadastroRepresentante2')->name('pessoaJuridica.cadastroRepresentante2');
 
     Route::post('/EditarRepresentanteLegal-2' , 'PessoaJuridicaController@editarRepresentante2')->name('pessoaJuridica.editarRepresentante2');
+
+    Route::post('/RemoverRepresentanteLegal-1' , 'PessoaJuridicaController@removerRepresentante')->name('pessoaJuridica.removerRepresentante');
+
+    Route::post('/RemoverRepresentanteLegal-2' , 'PessoaJuridicaController@removerRepresentante2')->name('pessoaJuridica.removerRepresentante2');
 });        
+

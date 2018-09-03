@@ -63,6 +63,9 @@
                 <button type="submit"
                         class="btn btn-primary btn-block btn-flat"
                 >{{ trans('adminlte::adminlte.register') }}</button>
+                <a href="/"
+                        class="btn btn-default btn-block btn-flat"
+                >Voltar</a>
             </form>
             <div class="auth-links">
                 <a href="{{ url(config('adminlte.login_url', 'login')) }}"

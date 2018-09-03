@@ -145,9 +145,8 @@ class AuthServiceProvider extends ServiceProvider
                             [
                                 'text' => 'Representante Legal 2',
                                 'icon' => '',
-                                'url'  => "route('pessoaJuridica.formEndereco')",                                
-                            ],                                    
-
+                                'url'  => route('pessoaJuridica.formRepresentante2'),                                
+                            ],
                         ],
                     ]
                 );

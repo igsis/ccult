@@ -41,7 +41,8 @@
     			<button type="submit" class="btn btn-primary">Atualizar Cadastro</button>
     		</div>
     	</form>
-    </div>
+	</div>
+	
     	
 @stop
 

@@ -10,10 +10,10 @@
  
     <div class="box box-primary">
     	<div class="box-header with-border">
-    		<h3 class="box-title">Representante Legal</h3>
+    		<h3 class="box-title">1º Representante Legal</h3>
     	</div>
 
-    	<form role="form" method="post" action="{{route('pessoaJuridica.cadastroRepresentante')}}">
+    	<form role="form" method="post" action="{{route('pessoaJuridica.editarRepresentante')}}">
     		{{ csrf_field() }}
     		<div class="box-body">
     			<div class="form-group has-feedback {{ $errors->has('nome') ? ' has-error' : '' }}">
@@ -32,11 +32,39 @@
     		</div>
 
     		<div class="box-footer">
-    			<button type="submit" class="btn btn-primary">Cadastrar Representante Legal</button>
+				<button type="submit" class="btn btn-primary">Atualizar 1º Representante Legal</button>
+				<button type="button" class="btn btn-danger" data-toggle="modal" data-target="#desativar">
+					Remover Representante Legal
+			</button>
     		</div>
     	</form>
-    </div>
-    	
+	</div>
+
+	<div class="modal fade" id="desativar" tabindex="-1" role="dialog">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+				<h4 class="modal-title">Desvincular {{$rep->nome}}?</h4>
+			</div>
+			<div class="modal-body">
+				<p>Deseja desvincular o representante <b>{{$rep->nome}}</b> do seu cadastro? </p>
+			</div>
+			<div class="modal-footer">
+				<form method="POST" action="{{route('pessoaJuridica.removerRepresentante')}}">
+					<input type="hidden" name="_token" value="{{ csrf_token() }}">
+						<button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>					
+					<button type="submit" class="btn btn-danger" data-toggle="modal" data-target="#modal-default">
+					Desvincular
+					</button>      
+				</form>
+			</div>
+			</div>
+		</div>
+	</div>
+
+
+
 @stop
 
 @section('js')
@@ -48,5 +76,5 @@
             let $seuCampoCpf = $("#CPF");
             $seuCampoCpf.mask('000.000.000-00', {reverse: true});
         });
-    </script>
+	</script>
 @stop

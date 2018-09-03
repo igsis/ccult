@@ -222,8 +222,8 @@ class PessoaJuridicaController extends Controller
 	{
 		$rep = auth()->user()->representanteLegal1;
 
-		if(auth()->user()->representanteLegal1){
-			// dd($rep);
+		if(auth()->user()->representanteLegal1)
+		{
 			return view('pessoaJuridica.editarRepresentanteLegal', compact('rep'));
 		}
 
@@ -233,47 +233,94 @@ class PessoaJuridicaController extends Controller
 
 	public function cadastroRepresentante(Request $request)
 	{
-		$this->validate($request, [
-			'nome' 		=>	'required',
-			'rg_rne'  	=>	'required',
+		$pj = auth()->user();
+		$data = $this->validate($request, [
+			'nome' 		=>	'required|string',
+			'rg'  		=>	'required',
 			'cpf' 		=>	'required|unique:representante_legais|min:14'
 		]);
 
-		representanteLegal1();
+		$rep = RepresentanteLegal::create($data);	
+
+		$pj->update(['representante_legal1_id' => $rep->id]);
+
+		return redirect()->route('pessoaJuridica.formRepresentante')->with('flash_message',
+		'1º Representante Legal Inserido com Sucesso!');
 	}
 
 	public function editarRepresentante(Request $request)
 	{
-		$this->validate($request, [
+		$pj = auth()->user();
+		$data = $this->validate($request, [
 			'nome' 		=>	'required',
-			'rg_rne'  	=>	'required',
-			'cpf' 		=>	'required|unique:representante_legais|min:14'
+			'rg'  		=>	'required',
 		]);
+
+		$pj->representanteLegal1()->update($data);
+
+		return redirect()->route('pessoaJuridica.formRepresentante')->with('flash_message',
+		'1º Representante Legal Atualizado com Sucesso!');
+	}
+
+	public function removerRepresentante(Request $request)
+	{
+		$pj = auth()->user();
+		$pj->update(['representante_legal1_id' => null]);
+
+		return redirect()->route('pessoaJuridica.formRepresentante')->with('flash_message',
+		'1º Representante Legal Foi Removido com Sucesso!');
 	}
 
 	public function formRepresentante2()
 	{
-		return view('pessoaJuridica.cadastroRepresentanteLegal2');
+		$rep = auth()->user()->representanteLegal2;
 
-		return view('pessoaJuridica.editarRepresentanteLegal2');
+		if(auth()->user()->representanteLegal2)
+		{
+			return view('pessoaJuridica.editarRepresentanteLegal2', compact('rep'));
+		}
+		
+		return view('pessoaJuridica.cadastroRepresentanteLegal2');
 	}
 
 	public function cadastroRepresentante2(Request $request)
 	{
-		$this->validate($request, [
-			'nome' 		=>	'required',
-			'rg_rne'  	=>	'required',
+		$pj = auth()->user();
+		$data = $this->validate($request, [
+			'nome' 		=>	'required|string',
+			'rg'  		=>	'required',
 			'cpf' 		=>	'required|unique:representante_legais|min:14'
 		]);
+
+		$rep = RepresentanteLegal::create($data);	
+
+		$pj->update(['representante_legal2_id' => $rep->id]);
+
+		return redirect()->route('pessoaJuridica.formRepresentante2')->with('flash_message',
+		'2º Representante Legal Inserido com Sucesso!');
 	}
 
 	public function editarRepresentante2(Request $request)
 	{
-		$this->validate($request, [
+		$pj = auth()->user();
+		$data = $this->validate($request, [
 			'nome' 		=>	'required',
-			'rg_rne'  	=>	'required',
-			'cpf' 		=>	'required|unique:representante_legais|min:14'
+			'rg'  		=>	'required',
 		]);
+
+		$pj->representanteLegal1()->update($data);
+
+		return redirect()->route('pessoaJuridica.formRepresentante2')->with('flash_message',
+		'1º Representante Legal Atualizado com Sucesso!');
+	}
+
+	public function removerRepresentante2(Request $request)
+	{
+		$pj = auth()->user();
+		$pj->update(['representante_legal2_id' => null]);
+
+		return redirect()->route('pessoaJuridica.formRepresentante')->with('flash_message',
+		'2º Representante Foi Removido com Sucesso!');
 	}
 	
 }

@@ -17,18 +17,17 @@ class LoginController extends Controller
     {
         $this->middleware('guest')->except('logout');
     }
-    
+
     public function login(Request $request)
     {
         $this->validate($request,[
 
-            'email' => 'required|email',
+            'email' => 'sometimes|required|email',
             'password' => 'required|min:6'
         ], 
         [
             'required' => 'O campo :attribute é obrigatório',
         ], [
-            'name'      => 'Nome',
             'email'     => 'E-mail',
             'password'  => 'Senha',
         ]); 
