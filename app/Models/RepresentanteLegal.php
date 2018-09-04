@@ -18,5 +18,14 @@ class RepresentanteLegal extends Model
   	public function pessoaJuridica()
     {
     	return $this->hasMany(PessoaJuridica::class);
-    }	
+	}
+	
+	public function search(Array $data)
+    {
+    	return $this->where(function($query) use ($data) {
+    		if (isset($data['cpf'])) {
+    			$query->where('cpf', '=', $data['cpf']);
+    		}
+    	});
+    }
 }

@@ -322,5 +322,42 @@ class PessoaJuridicaController extends Controller
 		return redirect()->route('pessoaJuridica.formRepresentante')->with('flash_message',
 		'2º Representante Foi Removido com Sucesso!');
 	}
+
+	public function search(Request $request, RepresentanteLegal $representanteLegal)
+    {
+		$dataForm = $request->all();
+		
+		$this->validate($request, [
+			'cpf' 		=>	'required|min:14',
+		],
+        [
+            'required' => 'O campo :attribute é obrigatório para localizar o Representante Legal',
+        ], [
+            'cpf'      => 'CPF',
+        ]);
+
+		$rep = $representanteLegal->search($dataForm)->first();
+        
+		return view('pessoaJuridica.editarRepresentanteLegal', compact('rep'));			
+
+	} 
+	
+	public function search2(Request $request, RepresentanteLegal $representanteLegal)
+    {
+		$dataForm = $request->all();
+		
+		$this->validate($request, [
+			'cpf' 		=>	'required|min:14',
+		],
+        [
+            'required' => 'O campo :attribute é obrigatório para localizar o Representante Legal',
+        ], [
+            'cpf'      => 'CPF',
+        ]);
+
+		$rep = $representanteLegal->search($dataForm)->first();
+        
+		return view('pessoaJuridica.editarRepresentanteLegal2', compact('rep'));		
+    }  
 	
 }

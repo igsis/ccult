@@ -13,14 +13,14 @@
     		<h3 class="box-title">2º Representante Legal</h3>
     	</div>
 
-	    <form method="POST" class="form form-inline" action="">
+	    <form method="POST" class="form form-inline" action="{{route('pessoaJuridica.search2')}}">
 	        {{ csrf_field() }}
 			<div class="box-body">
-				<input type="text" name="cpf" id="CPF" class="form-control" placeholder="Descrição" title="Pesquisar CPF Representante Legal">
+				<input type="text" name="cpf" id="CPF2" class="form-control" placeholder="Descrição" title="Pesquisar CPF Representante Legal">
 				<button class="btn btn-primary"><i class="glyphicon glyphicon-search"></i></button>
 			</div>
 	    </form>
-		
+
     	<form role="form" method="post" action="{{route('pessoaJuridica.cadastroRepresentante2')}}">
     		{{ csrf_field() }}
     		<div class="box-body">
@@ -55,6 +55,8 @@
         $(document).ready(function () { 
             let $seuCampoCpf = $("#CPF");
             $seuCampoCpf.mask('000.000.000-00', {reverse: true});
+			let $seuCampoCpf2 = $("#CPF2");
+            $seuCampoCpf2.mask('000.000.000-00', {reverse: true});
         });
     </script>
 @stop

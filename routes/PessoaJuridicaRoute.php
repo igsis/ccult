@@ -35,5 +35,10 @@ Route::group(['prefix' => 'PessoaJuridica', 'middleware' => 'pessoaJuridica'], f
     Route::post('/RemoverRepresentanteLegal-1' , 'PessoaJuridicaController@removerRepresentante')->name('pessoaJuridica.removerRepresentante');
 
     Route::post('/RemoverRepresentanteLegal-2' , 'PessoaJuridicaController@removerRepresentante2')->name('pessoaJuridica.removerRepresentante2');
+
+    Route::post('/PesquisarRepresentanteLegal' , 'PessoaJuridicaController@search')->name('pessoaJuridica.search');
+
+    Route::post('/PesquisarRepresentanteLegal2' , 'PessoaJuridicaController@search2')->name('pessoaJuridica.search2');
+
 });        
 
