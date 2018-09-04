@@ -128,6 +128,11 @@
                     <div class="alert alert-success"><em> {!! session('flash_message') !!}</em></div>
 
                 @endif
+                @if(Session::has('warning'))
+                
+                <div class="alert alert-warning"><em> {!! session('warning') !!}</em></div>
+
+                 @endif
                 @yield('content')
 
             </section>

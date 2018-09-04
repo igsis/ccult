@@ -325,39 +325,89 @@ class PessoaJuridicaController extends Controller
 
 	public function search(Request $request, RepresentanteLegal $representanteLegal)
     {
-		$dataForm = $request->all();
+		$dataForm = $request->except('_token');
 		
 		$this->validate($request, [
-			'cpf' 		=>	'required|min:14',
+			'cpf2' 		=>	'required|min:14',
 		],
         [
             'required' => 'O campo :attribute é obrigatório para localizar o Representante Legal',
         ], [
-            'cpf'      => 'CPF',
+            'cpf2'      => 'CPF',
         ]);
 
 		$rep = $representanteLegal->search($dataForm)->first();
+
+		if ($rep)
         
-		return view('pessoaJuridica.editarRepresentanteLegal', compact('rep'));			
+			return view('pessoaJuridica.cadastroRepresentanteLegal', compact('rep'))
+				->with('flash_message', 'Verifique se o Representante Legal corresponde a Pesquisa');
+
+		return redirect()->back()
+				->with('warning', 'Não existe Representante Legal Cadastrado Com Esse CPF');
+
 
 	} 
 	
 	public function search2(Request $request, RepresentanteLegal $representanteLegal)
     {
-		$dataForm = $request->all();
+		$dataForm = $request->except('_token');
 		
 		$this->validate($request, [
-			'cpf' 		=>	'required|min:14',
+			'cpf2' 		=>	'required|min:14',
 		],
         [
             'required' => 'O campo :attribute é obrigatório para localizar o Representante Legal',
         ], [
-            'cpf'      => 'CPF',
+            'cpf2'      => 'CPF',
         ]);
 
 		$rep = $representanteLegal->search($dataForm)->first();
+
+		if ($rep)
         
-		return view('pessoaJuridica.editarRepresentanteLegal2', compact('rep'));		
+			return view('pessoaJuridica.cadastroRepresentanteLegal2', compact('rep'))
+				->with('flash_message', 'Verifique se o Representante Legal corresponde a Pesquisa');
+
+		return redirect()->back()
+				->with('warning', 'Não existe Representante Legal Cadastrado Com Esse CPF');
     }  
 	
+	public function vincularRepresentante(Request $request)
+    {
+		$data = $this->validate($request,[
+			'nome' => 'required',
+			'rg' => 'required',
+		]);
+
+		$rep = RepresentanteLegal::findOrFail($request->id);
+
+		$rep->update($data);
+
+		$pj = auth()->user();
+
+		$pj->update(['representante_legal1_id' => $request->id ]);
+
+		return redirect()->route('pessoaJuridica.formRepresentante')->with('warning',
+		'1º Representante Legal Vinculado com Sucesso!');
+	}
+
+	public function vincularRepresentante2(Request $request)
+    {
+		$data = $this->validate($request,[
+			'nome' => 'required',
+			'rg' => 'required',
+		]);
+
+		$rep = RepresentanteLegal::findOrFail($request->id);
+
+		$rep->update($data);
+
+		$pj = auth()->user();
+
+		$pj->update(['representante_legal2_id' => $request->id ]);
+
+		return redirect()->route('pessoaJuridica.formRepresentante2')->with('flash_message',
+		'1º Representante Legal Atualizado com Sucesso!');
+	}
 }
