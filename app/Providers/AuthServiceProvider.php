@@ -58,7 +58,7 @@ class AuthServiceProvider extends ServiceProvider
                     [
                         'text'       => 'Pendências',
                         'icon_color' => 'red',
-                        'url'        => 'pendecias',
+                        'url'        => route('pessoaFisica.home'),
                         'can'        => 'pendecias'
                     ],
                     [
@@ -109,7 +109,7 @@ class AuthServiceProvider extends ServiceProvider
                     [
                         'text'       => 'Pendências',
                         'icon_color' => 'red',
-                        'url'        => 'pendecias',
+                        'url'        => route('pessoaJuridica.home'),
                         'can'        => 'pendecias'
                     ],
                     [
