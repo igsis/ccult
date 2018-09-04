@@ -13,6 +13,14 @@
     		<h3 class="box-title">2º Representante Legal</h3>
     	</div>
 
+	    <form method="POST" class="form form-inline" action="">
+	        {{ csrf_field() }}
+			<div class="box-body">
+				<input type="text" name="cpf" id="CPF" class="form-control" placeholder="Descrição" title="Pesquisar CPF Representante Legal">
+				<button class="btn btn-primary"><i class="glyphicon glyphicon-search"></i></button>
+			</div>
+	    </form>
+		
     	<form role="form" method="post" action="{{route('pessoaJuridica.cadastroRepresentante2')}}">
     		{{ csrf_field() }}
     		<div class="box-body">
