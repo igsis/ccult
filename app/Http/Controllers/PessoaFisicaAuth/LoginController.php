@@ -4,6 +4,7 @@ namespace ccult\Http\Controllers\PessoaFisicaAuth;
 
 use ccult\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use ccult\Models\PessoaFisica;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 
@@ -46,13 +47,18 @@ class LoginController extends Controller
             'password' => $request->password
         ];
 
-        if(Auth::guard('pessoaFisica')->attempt($credential, $request->menber)){
-            return redirect()->route('pessoaFisica.home');
-        }
-
-        // if(Auth::guard('web')->attempt($credential, $request->menber)){
-        //     return redirect()->route('home');
-        // }
+        if ($request->get('user_check') == '' || $request->get('user_check') == null) {
+            $checker = PessoaFisica::where("cpf",$request->cpf)->first(); 
+            if ($checker) {
+                if(Auth::guard('pessoaFisica')->attempt($credential, $request->menber)){
+                    return redirect()->route('pessoaFisica.home');
+                } else {
+                    return $this->sendFailedLoginResponse($request);
+                }    
+            } else {
+                return $this->sendFailedLoginResponse($request);
+            }
+        } 
 
         return redirect()->back()->withInput($request->only('cpf', 'remember'));
     }

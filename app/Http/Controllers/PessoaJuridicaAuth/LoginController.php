@@ -4,6 +4,7 @@ namespace ccult\Http\Controllers\PessoaJuridicaAuth;
 
 use ccult\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use ccult\Models\PessoaJuridica;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 
@@ -48,13 +49,18 @@ class LoginController extends Controller
             'password' => $request->password
         ];
 
-        if(Auth::guard('pessoaJuridica')->attempt($credential, $request->menber)){
-            return redirect()->route('pessoaJuridica.home');
-        }
-
-        // if(Auth::guard('web')->attempt($credential, $request->menber)){
-        //     return redirect()->route('home');
-        // }
+        if ($request->get('user_check') == '' || $request->get('user_check') == null) {
+            $checker = PessoaJuridica::where("cnpj",$request->cnpj)->first(); 
+            if ($checker) {
+                if(Auth::guard('pessoaJuridica')->attempt($credential, $request->menber)){
+                    return redirect()->route('pessoaJuridica.home');
+                } else {
+                    return $this->sendFailedLoginResponse($request);
+                }    
+            } else {
+                return $this->sendFailedLoginResponse($request);
+            }
+        } 
 
         return redirect()->back()->withInput($request->only('cnpj', 'remember'));
     }

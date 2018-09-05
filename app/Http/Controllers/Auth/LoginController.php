@@ -4,6 +4,7 @@ namespace ccult\Http\Controllers\Auth;
 
 use ccult\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use ccult\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 
@@ -37,9 +38,18 @@ class LoginController extends Controller
             'password' => $request->password
         ];
 
-        if(Auth::guard('web')->attempt($credential, $request->menber)){
-            return redirect()->route('home');
-        }
+        if ($request->get('user_check') == '' || $request->get('user_check') == null) {
+            $checker = user::where("email",$request->email)->first(); 
+            if ($checker) {
+                if(Auth::guard('web')->attempt($credential, $request->menber)){
+                    return redirect()->route('home');
+                } else {
+                    return $this->sendFailedLoginResponse($request);
+                }    
+            } else {
+                return $this->sendFailedLoginResponse($request);
+            }
+        } 
 
         return redirect()->back()->withInput($request->only('email', 'remember'));
     }
