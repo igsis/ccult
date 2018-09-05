@@ -82,13 +82,13 @@ class PessoaFisicaController extends Controller
 		$pf = PessoaFisica::findOrFail($id);
 
 		$this->validate($request, [
-			'cep'=>'required',
-			'logradouro'=>'nullable',
-			'bairro'=>'nullable',
+			'cep'=>'required|min:8',
+			'logradouro'=>'required',
+			'bairro'=>'required',
 			'numero'=>'required|numeric',
 			'complemento'=>'nullable',
-			'cidade'=>'nullable',
-			'uf'=>'nullable|max:2',
+			'cidade'=>'required',
+			'uf'=>'required|max:2',
 		]);
 
 		$pf->endereco()->create([
@@ -112,13 +112,13 @@ class PessoaFisicaController extends Controller
 		$pf = PessoaFisica::findOrFail($id);
 
 		$this->validate($request, [
-			'cep'=>'required',
-			'logradouro'=>'nullable',
-			'bairro'=>'nullable',
+			'cep'=>'required|min:8',
+			'logradouro'=>'required',
+			'bairro'=>'required',
 			'numero'=>'required|numeric',
 			'complemento'=>'nullable',
-			'cidade'=>'nullable',
-			'uf'=>'nullable|max:2',
+			'cidade'=>'required',
+			'uf'=>'required|max:2',
 		]);
 
 		$pf->endereco()->update([

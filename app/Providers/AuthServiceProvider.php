@@ -42,7 +42,6 @@ class AuthServiceProvider extends ServiceProvider
                 Gate::define('pendecias', function ($user) {
 
                     if((!isset($user->endereco->cep) || (!$user->telefones->count() > 0))){
-                        $count =  !$user->endereco->cep ? 1 : '';
                         return $user;
                     }
                 });
