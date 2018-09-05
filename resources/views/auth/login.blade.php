@@ -43,6 +43,15 @@
                 </div>
                 <div class="row">
                     <div class="col-xs-6">
+                        <div class="checkbox icheck">
+                            <label>
+                                <input type="checkbox" name="remember"> {{ trans('adminlte::adminlte.remember_me') }}
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-6">
                         <a href="/" class="btn btn-default btn-block btn-flat"> Voltar</a>
                     </div>
                     <div class="col-xs-6">

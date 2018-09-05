@@ -39,20 +39,6 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
 </head>
 <body class="hold-transition @yield('body_class')">      
-    <div class="container">
-        <!-- Content Header (Page header) -->
-        <section class="content-header">
-            @if (count($errors) > 0)
-                <div class="alert alert-danger">
-                    <ul>
-                        @foreach ($errors->all() as $error)
-                            <li>{{ $error }}</li>
-                        @endforeach
-                    </ul>
-                </div>
-            @endif                    
-        </section>
-    </div>
 
 @yield('body')
 

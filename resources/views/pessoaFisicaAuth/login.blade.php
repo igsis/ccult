@@ -43,6 +43,15 @@
                 </div>
                 <div class="row">
                     <div class="col-xs-6">
+                        <div class="checkbox icheck">
+                            <label>
+                                <input type="checkbox" name="remember"> {{ trans('adminlte::adminlte.remember_me') }}
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-6">
                         <a href="/" class="btn btn-default btn-block btn-flat"> Voltar</a>
                     </div>
                     <div class="col-xs-6">
@@ -55,8 +64,7 @@
             <div class="auth-links">
                 <!-- <a href="{{ url(config('adminlte.password_reset_url', 'password/reset')) }}"
                    class="text-center"
-                >{{ trans('adminlte::adminlte.i_forgot_my_password') }}</a> -->
-                <br>
+                >{{ trans('adminlte::adminlte.i_forgot_my_password') }}</a> -->                
                 <a href="{{route('pessoaFisica.register')}}"
                        class="text-center">
                        Cadastrar uma Pessoa Física
@@ -79,8 +87,8 @@
         });
     </script>
 
-    <script src="{{asset('js/jquery-1.12.4.min.js')}}"></script>
-    <script src="{{asset('js/jquery.mask.js')}}"></script>
+
+    <script src="{{asset('js/jquery.mask.js')}}"></script> 
 
     <script>
         $(document).ready(function () { 

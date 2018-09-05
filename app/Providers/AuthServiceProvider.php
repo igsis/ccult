@@ -23,7 +23,6 @@ class AuthServiceProvider extends ServiceProvider
             return $user;
         });
 
-        
         $events->listen(BuildingMenu::class, function (BuildingMenu $event) {
             if(auth()->guard('web')->user())
             {
@@ -43,9 +42,14 @@ class AuthServiceProvider extends ServiceProvider
                 Gate::define('pendecias', function ($user) {
 
                     if((!isset($user->endereco->cep) || (!$user->telefones->count() > 0))){
+                        $count =  !$user->endereco->cep ? 1 : '';
                         return $user;
                     }
                 });
+                
+                # Count das Pendencias PF
+                $count =  auth()->user()->telefones->count() ? 0 : 1;
+                $count += isset(auth()->user()->endereco->cep) ? 0 : 1;
 
 
                 $event->menu->add('MENU DE NAVEGAÇÃO');
@@ -56,10 +60,12 @@ class AuthServiceProvider extends ServiceProvider
                         'icon' =>   'home',
                     ],
                     [
-                        'text'       => 'Pendências',
-                        'icon_color' => 'red',
-                        'url'        => route('pessoaFisica.home'),
-                        'can'        => 'pendecias'
+                        'text'          => 'Pendências',
+                        'icon_color'    => 'red',
+                        'url'           => route('pessoaFisica.home'),
+                        'label'         => $count,
+                        'label_color'   => 'danger',
+                        'can'           => 'pendecias'
                     ],
                     [
                         'text' => 'Cadastro',                    
@@ -93,11 +99,20 @@ class AuthServiceProvider extends ServiceProvider
             {              
                 Gate::define('pendecias', function ($user) {
 
-                    if((!isset($user->endereco->cep) || (!$user->telefones->count() > 0))){
+                    if(
+                        (!isset($user->endereco->cep) || // Se não tiver Endereco
+                        (!$user->telefones->count() > 0)) || // ou um telefone
+                        (!isset($user->representante_legal1_id)) // ou pelo menos o 1º rep legal
+                     ){
                         return $user;
                     }
                 });
 
+                # Count das Pendencias PJ
+                $count =  auth()->user()->telefones->count() ? 0 : 1;
+                $count += isset(auth()->user()->endereco->cep) ? 0 : 1;
+                $count += auth()->user()->representante_legal1_id ? 0 : 1;
+              
 
                 $event->menu->add('MENU DE NAVEGAÇÃO');
                 $event->menu->add(
@@ -107,10 +122,12 @@ class AuthServiceProvider extends ServiceProvider
                         'icon' =>   'home',
                     ],
                     [
-                        'text'       => 'Pendências',
-                        'icon_color' => 'red',
-                        'url'        => route('pessoaJuridica.home'),
-                        'can'        => 'pendecias'
+                        'text'          => 'Pendências',
+                        'icon_color'    => 'red',
+                        'url'           => route('pessoaJuridica.home'),
+                        'label'         => $count,
+                        'label_color'   => 'danger',
+                        'can'           => 'pendecias'
                     ],
                     [
                         'text' => 'Cadastro',                    

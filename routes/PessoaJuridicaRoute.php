@@ -56,5 +56,7 @@ Route::group(['prefix' => 'PessoaJuridica', 'middleware' => 'pessoaJuridica'], f
 
     Route::post('/VincularRepresentanteLegal-2' , 'PessoaJuridicaController@vincularRepresentante2')->name('pessoaJuridica.vincularRepresentante2');
 
+    
+
 });        
 
