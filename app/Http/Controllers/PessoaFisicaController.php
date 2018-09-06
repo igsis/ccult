@@ -142,7 +142,7 @@ class PessoaFisicaController extends Controller
 
 		if(auth()->user()->telefones->count() > 0){
 			$tel = PfTelefone::where('pessoa_fisica_id', $id)->first();
-			// dd($tel->telefone);
+
 			return view('pessoaFisica.editarTelefone', compact('tel'));
 
 		}
@@ -196,6 +196,7 @@ class PessoaFisicaController extends Controller
 			'telefone' =>'required_without:celular',
 			'celular'  =>'required_without:telefone',
 		]);
+
 		$telefone = PfTelefone::where('pessoa_fisica_id', $id)->first();
 
 		if ($request->celular && $request->telefone){
@@ -228,6 +229,36 @@ class PessoaFisicaController extends Controller
 			return redirect()->route('pessoaFisica.formTelefones')->with('flash_message',
 			'Telefone Atualizado com Sucesso!');
 		}
+	}
+
+	public function pendencias()
+	{
+		$notificacoes = [];
+
+		if(!isset(auth()->user()->endereco->cep)){
+			
+			$notificacao = (object) 
+			[
+				'titulo'	=>	'Cadastro de Endereço Pendente',
+				'aviso' 	=>	'Necessário Cadastrar Endereço',
+				'rota' 		=>	 route('pessoaFisica.formEndereco'),
+			];
+			array_push($notificacoes, $notificacao);
+
+		}
+
+		if(!auth()->user()->telefones->count() > 0){
+
+			$notificacao = (object) 
+			[
+				'titulo'	=>	'Cadastro de Telefone Pendente',
+				'aviso' 	=>	'Necessário Cadastrar Pelo Menos Um Telefone',
+				'rota' 		=>	 route('pessoaFisica.formTelefones'),
+			];
+			array_push($notificacoes, $notificacao);
+		}
+
+		return view('pessoaFisica.pendencias', compact('notificacoes'));		
 	}
 	
 }

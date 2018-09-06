@@ -28,9 +28,9 @@ class AuthServiceProvider extends ServiceProvider
             {
                 $event->menu->add('MENU DE NAVEGAÇÃO');
                 $event->menu->add([
-                    'text' =>   'Home',
-                    'url'  =>   route('home'),
-                    'icon' =>   'home',
+                    'text'  => 'Home',
+                    'url'   =>  route('home'),
+                    'icon'  => 'home',
                 ]);
             }
         });
@@ -54,15 +54,15 @@ class AuthServiceProvider extends ServiceProvider
                 $event->menu->add('MENU DE NAVEGAÇÃO');
                 $event->menu->add(
                     [
-                        'text' =>   'Home',
-                        'url'  =>   route('pessoaFisica.home'),
-                        'icon' =>   'home',
+                        'text'  =>   'Home',
+                        'url'   =>    route('pessoaFisica.home'),
+                        'icon'  =>   'home',
                     ],
                     [
                         'text'          => 'Pendências',
                         'icon_color'    => 'red',
-                        'url'           => route('pessoaFisica.home'),
-                        'label'         => $count,
+                        'url'           =>  route('pessoaFisica.pendecias'),
+                        'label'         =>  $count,
                         'label_color'   => 'danger',
                         'can'           => 'pendecias'
                     ],
@@ -71,19 +71,19 @@ class AuthServiceProvider extends ServiceProvider
                         'icon' => 'user',
                         'submenu' => [
                             [
-                                'text'    => 'Dados Princípais',
-                                'icon' => '',
-                                'url'  => route('pessoaFisica.cadastro'),
+                                'text'  => 'Dados Princípais',
+                                'icon'  => '',
+                                'url'   => route('pessoaFisica.cadastro'),
                             ],            
                             [
-                                'text' => 'Endereço',
-                                'icon' => '',
-                                'url'  => route('pessoaFisica.formEndereco'),                                
+                                'text'  => 'Endereço',
+                                'icon'  => '',
+                                'url'   =>  route('pessoaFisica.formEndereco'),                                
                             ],                                    
                             [
-                                'text' => 'Telefones',
-                                'icon' => '',
-                                'url'  => route('pessoaFisica.formTelefones'),                                
+                                'text'  => 'Telefones',
+                                'icon'  => '',
+                                'url'   =>  route('pessoaFisica.formTelefones'),                                
                             ],
                         ],
                     ]
@@ -117,14 +117,14 @@ class AuthServiceProvider extends ServiceProvider
                 $event->menu->add(
                     [
                         'text' =>   'Home',
-                        'url'  =>   route('pessoaJuridica.home'),
+                        'url'  =>    route('pessoaJuridica.home'),
                         'icon' =>   'home',
                     ],
                     [
                         'text'          => 'Pendências',
                         'icon_color'    => 'red',
-                        'url'           => route('pessoaJuridica.home'),
-                        'label'         => $count,
+                        'url'           =>  route('pessoaJuridica.pendecias'),
+                        'label'         =>  $count,
                         'label_color'   => 'danger',
                         'can'           => 'pendecias'
                     ],
@@ -133,19 +133,19 @@ class AuthServiceProvider extends ServiceProvider
                         'icon' => 'user',
                         'submenu' => [
                             [
-                                'text'    => 'Dados Princípais',
-                                'icon' => '',
-                                'url'  => route('pessoaJuridica.cadastro'),
+                                'text'  => 'Dados Princípais',
+                                'icon'  => '',
+                                'url'   => route('pessoaJuridica.cadastro'),
                             ],            
                             [
-                                'text' => 'Endereço',
-                                'icon' => '',
-                                'url'  => route('pessoaJuridica.formEndereco'),                                
+                                'text'  => 'Endereço',
+                                'icon'  => '',
+                                'url'   => route('pessoaJuridica.formEndereco'),                                
                             ],                                    
                             [
-                                'text' => 'Telefones',
-                                'icon' => '',
-                                'url'  => route('pessoaJuridica.formTelefones'),                                
+                                'text'  => 'Telefones',
+                                'icon'  => '',
+                                'url'   => route('pessoaJuridica.formTelefones'),                                
                             ],
                         ],
                     ],
@@ -154,14 +154,14 @@ class AuthServiceProvider extends ServiceProvider
                         'icon' => 'user',
                         'submenu' => [
                             [
-                                'text'    => 'Representante Legal 1',
-                                'icon' => '',
-                                'url'  => route('pessoaJuridica.formRepresentante'),
+                                'text'  => 'Representante Legal 1',
+                                'icon'  => '',
+                                'url'   => route('pessoaJuridica.formRepresentante'),
                             ],            
                             [
-                                'text' => 'Representante Legal 2',
-                                'icon' => '',
-                                'url'  => route('pessoaJuridica.formRepresentante2'),                                
+                                'text'  => 'Representante Legal 2',
+                                'icon'  => '',
+                                'url'   => route('pessoaJuridica.formRepresentante2'),                                
                             ],
                         ],
                     ]

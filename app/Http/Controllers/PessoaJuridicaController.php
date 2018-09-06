@@ -430,6 +430,46 @@ class PessoaJuridicaController extends Controller
 			'Você tentou Vincular o 2º Representante antes do 1º Representante,<br>
 			Devido a isso, esse Representqante foi Vinculado como 1º Representqante Legal!');
 
+	}
 
+	public function pendencias()
+	{
+		$notificacoes = [];
+
+		if(!isset(auth()->user()->endereco->cep)){
+			
+			$notificacao = (object) 
+			[
+				'titulo'	=>	'Cadastro de Endereço Pendente',
+				'aviso' 	=>	'Necessário Cadastrar Endereço',
+				'rota' 		=>	 route('pessoaJuridica.formEndereco'),
+			];
+			array_push($notificacoes, $notificacao);
+
+		}
+
+		if(!auth()->user()->telefones->count() > 0){
+
+			$notificacao = (object) 
+			[
+				'titulo'	=>	'Cadastro de Telefone Pendente',
+				'aviso' 	=>	'Necessário Cadastrar Pelo Menos Um Telefone',
+				'rota' 		=>	 route('pessoaJuridica.formTelefones'),
+			];
+			array_push($notificacoes, $notificacao);
+		}
+
+		if(!auth()->user()->representante_legal1_id){
+
+			$notificacao = (object) 
+			[
+				'titulo'	=>	'Cadastro de Representante Legal Pendente',
+				'aviso' 	=>	'Necessário Cadastrar Pelo Menos Um Representante Legal',
+				'rota' 		=>	 route('pessoaJuridica.formRepresentante'),
+			];
+			array_push($notificacoes, $notificacao);
+		}
+
+		return view('pessoaJuridica.pendencias', compact('notificacoes'));
 	}
 }

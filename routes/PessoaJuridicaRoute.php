@@ -2,13 +2,17 @@
 
 Route::group(['prefix' => 'PessoaJuridica', 'middleware' => 'pessoaJuridica'], function(){
 
-    // Rotas de Pessoa Jurídica Cadastro 
-    
     Route::get('/home', 'PessoaJuridicaController@index')->name('pessoaJuridica.home');
+    
+    // Rotas de Pessoa Jurídica Cadastro 
 
     Route::get('/cadastro' , 'PessoaJuridicaController@show')->name('pessoaJuridica.cadastro');
 
     Route::post('/atualizar' , 'PessoaJuridicaController@update')->name('pessoaJuridica.atualizar');
+
+    // Rota de Pendências
+    
+    Route::get('Pendecias', 'PessoaJuridicaController@pendencias')->name('pessoaJuridica.pendecias')->middleware('PendenciasPJ');
 
     // Rotas de Endereço
 

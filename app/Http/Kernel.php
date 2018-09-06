@@ -60,6 +60,8 @@ class Kernel extends HttpKernel
         'signed' => \Illuminate\Routing\Middleware\ValidateSignature::class,
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'pessoaFisica' => \ccult\Http\Middleware\pessoaFisicaMiddleware::class,
-        'pessoaJuridica' => \ccult\Http\Middleware\pessoaJuridicaMiddleware::class
+        'pessoaJuridica' => \ccult\Http\Middleware\pessoaJuridicaMiddleware::class,
+        'PendenciasPF' =>  \ccult\Http\Middleware\PendenciasPF::class,
+        'PendenciasPJ' =>  \ccult\Http\Middleware\PendenciasPJ::class,
     ];
 }
