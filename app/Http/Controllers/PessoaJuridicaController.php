@@ -350,7 +350,7 @@ class PessoaJuridicaController extends Controller
 		$pj = auth()->user();
 		$pj->update(['representante_legal2_id' => null]);
 
-		return redirect()->route('pessoaJuridica.formRepresentante')->with('flash_message',
+		return redirect()->route('pessoaJuridica.formRepresentante2')->with('flash_message',
 		'2º Representante Foi Removido com Sucesso!');
 	}
 
@@ -429,21 +429,28 @@ class PessoaJuridicaController extends Controller
 			'rg' => 'required',
 		]);
 
-		$rep = RepresentanteLegal::findOrFail($request->id);
-
-		$rep->update($data);
-
 		$pj = auth()->user();
 
-		if(auth()->user()->representanteLegal1)
-		{
-			$pj->update(['representante_legal2_id' => $request->id ]);
+		$rep = RepresentanteLegal::findOrFail($request->id);
 
-			return redirect()->route('pessoaJuridica.formRepresentante2')->with('flash_message',
-			'2º Representante Legal Vinculado com Sucesso!');
+		if($pj->representanteLegal1)
+		{
+			if($pj->representanteLegal1->id != $rep->id)
+			{
+				$pj->update(['representante_legal2_id' => $request->id ]);
+
+				$rep->update($data);
+
+				return redirect()->route('pessoaJuridica.formRepresentante2')->with('flash_message',
+					'2º Representante Legal Vinculado com Sucesso!');
+			}
+			return redirect()->back()
+				->with('warning', 'Representate já foi cadastrado como 1º Representante Legal!');
 		}
 
 		$pj->update(['representante_legal1_id' => $request->id ]);
+		
+		$rep->update($data);
 
 		return redirect()->route('pessoaJuridica.formRepresentante')->with('flash_message',
 			'Você tentou Vincular o 2º Representante antes do 1º Representante,<br>
