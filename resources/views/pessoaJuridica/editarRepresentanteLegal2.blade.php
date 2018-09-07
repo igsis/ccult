@@ -13,7 +13,7 @@
     		<h3 class="box-title">2º Representante Legal</h3>
     	</div>
 
-    	<form role="form" method="post" action="{{route('pessoaJuridica.cadastroRepresentante')}}">
+    	<form role="form" method="post" action="{{route('pessoaJuridica.editarRepresentante2')}}">
     		{{ csrf_field() }}
     		<div class="box-body">
     			<div class="form-group has-feedback {{ $errors->has('nome') ? ' has-error' : '' }}">

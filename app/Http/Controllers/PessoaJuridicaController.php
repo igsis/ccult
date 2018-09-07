@@ -220,9 +220,16 @@ class PessoaJuridicaController extends Controller
 	}
 	public function formRepresentante()
 	{
-		$rep = auth()->user()->representanteLegal1;
+		$pj = auth()->user();
 
-		if(auth()->user()->representanteLegal1)
+		$rep = $pj->representanteLegal1;
+		$rep2 = $pj->representanteLegal2;
+
+		if($pj->representanteLegal1 && $pj->representanteLegal2)
+		{
+			return view('pessoaJuridica.editarRepresentanteLegal', compact('rep', 'rep2'));
+
+		}elseif ($pj->representanteLegal1) 
 		{
 			return view('pessoaJuridica.editarRepresentanteLegal', compact('rep'));
 		}
@@ -265,6 +272,19 @@ class PessoaJuridicaController extends Controller
 	public function removerRepresentante(Request $request)
 	{
 		$pj = auth()->user();
+
+		if ($pj->representanteLegal2) {
+
+			$mensagem = 'Você removeu o 1º Representante, '.$pj->representanteLegal1->nome 
+			. '.<br> O 2º Representante, '. $pj->representanteLegal2->nome . ', Passou a ser o 1º Representante Legal!';
+
+			$pj->update([
+				'representante_legal1_id' => $pj->representanteLegal2->id,
+				'representante_legal2_id' => null
+			]);
+
+			return redirect()->route('pessoaJuridica.formRepresentante')->with('warning',$mensagem);
+		}
 		$pj->update(['representante_legal1_id' => null]);
 
 		return redirect()->route('pessoaJuridica.formRepresentante')->with('flash_message',
@@ -294,8 +314,9 @@ class PessoaJuridicaController extends Controller
 
 		$rep = RepresentanteLegal::create($data);	
 
+		# Verifica se existe o 1º Representante legal 
 		if(auth()->user()->representanteLegal1)
-		{
+		{	
 			$pj->update(['representante_legal2_id' => $rep->id]);
 
 			return redirect()->route('pessoaJuridica.formRepresentante2')->with('flash_message',
@@ -307,7 +328,6 @@ class PessoaJuridicaController extends Controller
 		return redirect()->route('pessoaJuridica.formRepresentante')->with('flash_message',
 			'Você tentou cadastrar o 2º Representante antes do 1º Representante,<br>
 			Devido a isso, esse Representqante foi inserido como 1º Representqante Legal!');
-
 
 	}
 
@@ -322,7 +342,7 @@ class PessoaJuridicaController extends Controller
 		$pj->representanteLegal1()->update($data);
 
 		return redirect()->route('pessoaJuridica.formRepresentante2')->with('flash_message',
-		'1º Representante Legal Atualizado com Sucesso!');
+		'2º Representante Legal Atualizado com Sucesso!');
 	}
 
 	public function removerRepresentante2(Request $request)
@@ -357,7 +377,6 @@ class PessoaJuridicaController extends Controller
 		return redirect()->back()
 				->with('warning', 'Não existe Representante Legal Cadastrado Com Esse CPF');
 
-
 	} 
 	
 	public function search2(Request $request, RepresentanteLegal $representanteLegal)
@@ -387,8 +406,8 @@ class PessoaJuridicaController extends Controller
 	public function vincularRepresentante(Request $request)
     {
 		$data = $this->validate($request,[
-			'nome' => 'required',
-			'rg' => 'required',
+			'nome' 	=> 'required',
+			'rg' 	=> 'required',
 		]);
 
 		$rep = RepresentanteLegal::findOrFail($request->id);
@@ -399,7 +418,7 @@ class PessoaJuridicaController extends Controller
 
 		$pj->update(['representante_legal1_id' => $request->id ]);
 
-		return redirect()->route('pessoaJuridica.formRepresentante')->with('warning',
+		return redirect()->route('pessoaJuridica.formRepresentante')->with('flash_message',
 		'1º Representante Legal Vinculado com Sucesso!');
 	}
 

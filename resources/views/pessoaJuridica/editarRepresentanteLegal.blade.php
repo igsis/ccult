@@ -48,7 +48,13 @@
 				<h4 class="modal-title">Desvincular {{$rep->nome}}?</h4>
 			</div>
 			<div class="modal-body">
-				<p>Deseja desvincular o representante <b>{{$rep->nome}}</b> do seu cadastro? </p>
+				@if (isset($rep2))
+					<p>Deseja desvincular o representante <b>{{ $rep->nome }}</b> do seu cadastro?</p>
+					<p class="text-warning">O 2º Representante, <b>{{ $rep2->nome }}</b>. Será vinculado como 1º Representante Legal!</p>
+				@else 
+					<p>Deseja desvincular o representante <b>{{ $rep->nome }}</b> do seu cadastro? </p>
+				@endif
+				
 			</div>
 			<div class="modal-footer">
 				<form method="POST" action="{{route('pessoaJuridica.removerRepresentante')}}">
@@ -62,8 +68,6 @@
 			</div>
 		</div>
 	</div>
-
-
 
 @stop
 
