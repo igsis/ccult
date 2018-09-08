@@ -22,15 +22,15 @@
     			</div>
     			<div class="form-group">
     				<label for="">Nome Social</label>
-    				<input type="text" class="form-control" id="" name="nomeSocial" value="{{ $pessoaFisica->nome_social }}" placeholder="Nome Social">
+    				<input type="text" class="form-control" id="" name="nome_social" value="{{ $pessoaFisica->nome_social }}" placeholder="Nome Social">
     			</div>
     			<div class="form-group">
     				<label for="">Nome Artístico</label>
-    				<input type="text" class="form-control" id="" name="nomeArtistico" value="{{ $pessoaFisica->nome_artistico }}" placeholder="Nome Artístico">
+    				<input type="text" class="form-control" id="" name="nome_artistico" value="{{ $pessoaFisica->nome_artistico }}" placeholder="Nome Artístico">
     			</div>
-    			<div class="form-group has-feedback {{ $errors->has('rgRne') ? ' has-error' : '' }}">
+    			<div class="form-group has-feedback {{ $errors->has('rg_rne') ? ' has-error' : '' }}">
     				<label for="">RG - RNE</label>
-    				<input type="text" class="form-control" name="rgRne" value="{{ $pessoaFisica->rg_rne }}" placeholder="RG ou RNE">
+    				<input type="text" class="form-control" name="rg_rne" value="{{ $pessoaFisica->rg_rne }}" placeholder="RG ou RNE">
     			</div>
     			<div class="form-group">
     				<label for="">Passaporte</label>
@@ -44,9 +44,9 @@
     				<label for="">CPF</label>
     				<input type="text" class="form-control" id="CPF" value="{{ $pessoaFisica->cpf }}" disabled>
     			</div>
-    			<div class="form-group has-feedback {{ $errors->has('dataNascimento') ? ' has-error' : '' }}">
+    			<div class="form-group has-feedback {{ $errors->has('data_nascimento') ? ' has-error' : '' }}">
     				<label for="">Data de Nascimento</label>
-    				<input type="date" class="form-control" id="" name="dataNascimento" value="{{ $pessoaFisica->data_nascimento }}" placeholder="01/01/1990">
+    				<input type="date" class="form-control" id="" name="data_nascimento" value="{{ $pessoaFisica->data_nascimento }}" placeholder="01/01/1990">
     			</div>
     			<div class="form-group has-feedback {{ $errors->has('email') ? ' has-error' : '' }}">
 	    			<label for="email">E-mail</label>

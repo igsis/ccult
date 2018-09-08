@@ -16,7 +16,7 @@ class PendenciasPF
      */
     public function handle($request, Closure $next)
     {
-        if( isset(auth()->user()->endereco->cep) &&  auth()->user()->telefones->count() > 0 )
+        if( auth()->user()->endereco &&  auth()->user()->telefone)
 
             return redirect()->route('pessoaFisica.home');
 

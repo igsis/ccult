@@ -37,8 +37,8 @@ class PessoaFisica extends Authenticatable
         return $this->hasOne(PfEndereco::class);
     }
 
-    public function telefones()
+    public function telefone()
     {
-        return $this->hasMany(PfTelefone::class);
+        return $this->hasOne(PfTelefone::class);
     }
 }

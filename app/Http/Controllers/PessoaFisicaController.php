@@ -21,43 +21,30 @@ class PessoaFisicaController extends Controller
 
     public function show()
     {
-		$id = auth()->user()->id;
-		$pessoaFisica = PessoaFisica::find($id);
+		$pessoaFisica = auth()->user();
+
         return view('pessoaFisica.cadastro', compact('pessoaFisica'));
     }
 
     public function update(Request $request)
     {
+		$pf = auth()->user();
 
 		$data = $this->validate($request, [
 			'nome' => 'required',
-			'nomeSocial' => 'nullable',
-			'nomeArtistico' => 'nullable',
+			'nome_social' => 'nullable',
+			'nome_artistico' => 'nullable',
 			// 'documento' => 'required',
-			'rgRne' => 'required',
+			'rg_rne' => 'required',
 			'ccm' => 'nullable',
 			'cpf' => 'nullable',
 			'passaporte' => 'nullable',
-			'dataNascimento' => 'required',
+			'data_nascimento' => 'required',
 			'email' => 'required',
 		]);
+		# Melhorar erros
 
-		$id = auth()->user()->id;
-
-		$pessoaFisica = PessoaFisica::findOrFail($id);
-
-		$pessoaFisica->update([
-			'nome' => $request->nome,
-			'nome_social' => $request->nomeSocial,
-			'nome_artistico' => $request->nomeArtistico,
-			// 'documento_tipo_id' => $request->documento_tipo_id,
-			'rg_rne' => $request->rgRne,
-			'ccm' => $request->ccm,
-			'passaporte' => $request->passaporte,
-			'data_nascimento' => $request->dataNascimento,
-			'email' => $request->email,
-			'senha' => $request->senha,
-		]);
+		$pf->update($data);
 
     	return redirect()->back()->with('flash_message',
             'Seus Dados Foram Atualizados Com Sucesso!');
@@ -66,22 +53,22 @@ class PessoaFisicaController extends Controller
 	
 	public function endereco()
 	{
-		if (!isset(auth()->user()->endereco->cep)){
+		$pf = auth()->user();
+
+		if (!$pf->endereco){
 			return view('pessoaFisica.cadastroEndereco');
 		}
-		
-		$id = auth()->user()->id;
-		$endereco = PfEndereco::where('pessoa_fisica_id', '=', $id)->first();
+
+		$endereco = PfEndereco::find($pf->id);
 
 		return view('pessoaFisica.editarEndereco', compact('endereco'));
 	}
 
 	public function cadastroEndereco(Request $request)
 	{
-		$id = auth()->user()->id;
-		$pf = PessoaFisica::findOrFail($id);
+		$pf = auth()->user();
 
-		$this->validate($request, [
+		$data = $this->validate($request, [
 			'cep'=>'required|min:8',
 			'logradouro'=>'required',
 			'bairro'=>'required',
@@ -90,17 +77,9 @@ class PessoaFisicaController extends Controller
 			'cidade'=>'required',
 			'uf'=>'required|max:2',
 		]);
+		$data['pessoa_fisica_id'] = $pf->id;
 
-		$pf->endereco()->create([
-			'pessoa_fisica_id' => $id,
-			'cep' => $request->cep,
-			'logradouro' => $request->logradouro,
-			'numero' => $request->numero,
-			'complemento' => $request->complemento,
-			'bairro' => $request->bairro,
-			'cidade' => $request->cidade,
-			'uf' => $request->uf
-		]);
+		$pf->endereco()->create($data);
 
 		return redirect()->route('pessoaFisica.formEndereco')->with('flash_message',
 		'Seu Endereço Foi Cadastrado Com Sucesso!');
@@ -108,10 +87,9 @@ class PessoaFisicaController extends Controller
 
 	public function atualizarEndereco(Request $request)
 	{
-		$id = auth()->user()->id;
-		$pf = PessoaFisica::findOrFail($id);
+		$pf = auth()->user();
 
-		$this->validate($request, [
+		$data = $this->validate($request, [
 			'cep'=>'required|min:8',
 			'logradouro'=>'required',
 			'bairro'=>'required',
@@ -120,17 +98,9 @@ class PessoaFisicaController extends Controller
 			'cidade'=>'required',
 			'uf'=>'required|max:2',
 		]);
+		$data['pessoa_fisica_id'] = $pf->id;
 
-		$pf->endereco()->update([
-			'pessoa_fisica_id' => $id,
-			'cep' => $request->cep,
-			'logradouro' => $request->logradouro,
-			'numero' => $request->numero,
-			'complemento' => $request->complemento,
-			'bairro' => $request->bairro,
-			'cidade' => $request->cidade,
-			'uf' => $request->uf
-		]);
+		$pf->endereco()->update($data);
 
 		return redirect()->route('pessoaFisica.formEndereco')->with('flash_message',
 		'Seu Endereço Foi Atualizado Com Sucesso!');
@@ -138,104 +108,84 @@ class PessoaFisicaController extends Controller
 
 	public function formTelefones()
 	{
-		$id = auth()->user()->id;
+		$tel = auth()->user()->telefone;
 
-		if(auth()->user()->telefones->count() > 0){
-			$tel = PfTelefone::where('pessoa_fisica_id', $id)->first();
+		if($tel){
 
 			return view('pessoaFisica.editarTelefone', compact('tel'));
-
 		}
+
 		return view('pessoaFisica.cadastroTelefone');
 	}
 
 	public function cadastroTelefone(Request $request)
 	{
-		$id = auth()->user()->id;
+		$pf = auth()->user();
 
-		$this->validate($request, [
+		$data = $this->validate($request, [
 			'telefone' =>'required_without:celular',
 			'celular'  =>'required_without:telefone',
 		]);
+		$data['pessoa_fisica_id'] = $pf->id;
+
 
 		if ($request->celular && $request->telefone){
-			PfTelefone::create([
-				'pessoa_fisica_id'	=> $id,
-				'telefone' 		  	=> $request->telefone,
-				'celular' 		  	=> $request->celular
-			]);
+			PfTelefone::create($data);
 
-			return redirect()->route('pessoaFisica.formTelefones')->with('flash_message',
-			'Telefones Cadastrados Com Sucesso!');
+			$mensagem = 'Telefones Cadastrados';
 
 		}elseif ($request->celular && !$request->telefone) {
-			PfTelefone::create([
-				'pessoa_fisica_id'	=> $id,
-				'celular' 		  	=> $request->celular
-			]);
+			PfTelefone::create($data);
 
-			return redirect()->route('pessoaFisica.formTelefones')->with('flash_message',
-			'Celular cadastrado com Sucesso!');
+			$mensagem = 'Celular Cadastrados';
 		}
 		elseif (!$request->celular && $request->telefone) {
-			PfTelefone::create([
-				'pessoa_fisica_id'	=> $id,
-				'telefone' 		  	=> $request->telefone,
-			]);
+			PfTelefone::create($data);
 
-			return redirect()->route('pessoaFisica.formTelefones')->with('flash_message',
-			'Telefone cadastrado com Sucesso!');
+			$mensagem = 'Telefone cadastrado';
 		}
+
+		return redirect()->route('pessoaFisica.formTelefones')->with('flash_message', "$mensagem com Sucesso!");
 	}
 	public function atualizaTelefone(Request $request)
 	{
-	
-		$id = auth()->user()->id;
+		$pf = auth()->user();
 
-		$this->validate($request, [
+		$data = $this->validate($request, [
 			'telefone' =>'required_without:celular',
 			'celular'  =>'required_without:telefone',
 		]);
-
-		$telefone = PfTelefone::where('pessoa_fisica_id', $id)->first();
+		$data['pessoa_fisica_id'] = $pf->id;
+			
+		$telefone = PfTelefone::find($pf->id);
 
 		if ($request->celular && $request->telefone){
-			$telefone->update([
-				'pessoa_fisica_id'	=> $id,
-				'telefone' 		  	=> $request->telefone,
-				'celular' 		  	=> $request->celular
-			]);
+			$telefone->update($data);
 
-			return redirect()->route('pessoaFisica.formTelefones')->with('flash_message',
-			'Telefones Atualizados Com Sucesso!');
-
-		}elseif ($request->celular && !$request->telefone) {
-			$telefone->update([
-				'pessoa_fisica_id'	=> $id,
-				'telefone' 		  	=> '',
-				'celular' 		  	=> $request->celular
-			]);
-
-			return redirect()->route('pessoaFisica.formTelefones')->with('flash_message',
-			'Celular Atualizado com Sucesso!');
+			$mensagem = 'Telefones Atualizados';
 		}
-		elseif (!$request->celular && $request->telefone) {
-			$telefone->update([
-				'pessoa_fisica_id'	=> $id,
-				'telefone' 		  	=> $request->telefone,
-				'celular' 		  	=> ''
-			]);
+		elseif ($request->celular && !$request->telefone){
+			$telefone->update($data);
 
-			return redirect()->route('pessoaFisica.formTelefones')->with('flash_message',
-			'Telefone Atualizado com Sucesso!');
+			$mensagem = 'Celular Atualizado';
 		}
+		elseif (!$request->celular && $request->telefone){
+			$telefone->update($data);
+
+			$mensagem = 'Telefone Atualizado';
+		}
+		
+		return redirect()->route('pessoaFisica.formTelefones')->with('flash_message', "$mensagem com Sucesso!");
+
 	}
 
 	public function pendencias()
 	{
+		$pf = auth()->user();
+		
 		$notificacoes = [];
 
-		if(!isset(auth()->user()->endereco->cep)){
+		if(!$pf->endereco){
 			
 			$notificacao = (object) 
 			[
@@ -247,7 +197,7 @@ class PessoaFisicaController extends Controller
 
 		}
 
-		if(!auth()->user()->telefones->count() > 0){
+		if(!$pf->telefone){
 
 			$notificacao = (object) 
 			[

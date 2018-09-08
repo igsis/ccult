@@ -22,8 +22,8 @@ class PessoaJuridicaController extends Controller
 
     public function show()
     {
-		$id = auth()->user()->id;
-		$pessoaJuridica = PessoaJuridica::find($id);
+		$pessoaJuridica = auth()->user();
+
         return view('pessoaJuridica.cadastro', compact('pessoaJuridica'));
     }
 
@@ -37,11 +37,9 @@ class PessoaJuridicaController extends Controller
 			'email' => 'required|string|email|max:255',
 		]);
 
-		$id = auth()->user()->id;
+		$pj = auth()->user();
 
-		$pessoaJuridica = PessoaJuridica::findOrFail($id);
-
-		$pessoaJuridica->update([
+		$pj->update([
 			'razao_social' => $request->razaoSocial,
 			// 'documento_tipo_id' => $request->documento_tipo_id,
 			'ccm' => $request->ccm,
@@ -54,23 +52,23 @@ class PessoaJuridicaController extends Controller
 	}
 	
 	public function endereco()
-	{
-		if (!isset(auth()->user()->endereco->cep)){
+	{	
+		$pj = auth()->user();
+
+		if (!$pj->endereco){
 			return view('pessoaJuridica.cadastroEndereco');
 		}
-		
-		$id = auth()->user()->id;
-		$endereco = PjEndereco::where('pessoa_juridica_id', '=', $id)->first();
+
+		$endereco = PjEndereco::find($pj->id);
 
 		return view('pessoaJuridica.editarEndereco', compact('endereco'));
 	}
 
 	public function cadastroEndereco(Request $request)
 	{
-		$id = auth()->user()->id;
-		$pj = PessoaJuridica::findOrFail($id);
+		$pj = auth()->user();
 
-		$this->validate($request, [
+		$data = $this->validate($request, [
 			'cep'=>'required|min:8',
 			'logradouro'=>'required',
 			'bairro'=>'required',
@@ -80,16 +78,9 @@ class PessoaJuridicaController extends Controller
 			'uf'=>'required|max:2',
 		]);
 
-		$pj->endereco()->create([
-			'pessoa_juridica_id' => $id,
-			'cep' => $request->cep,
-			'logradouro' => $request->logradouro,
-			'numero' => $request->numero,
-			'complemento' => $request->complemento,
-			'bairro' => $request->bairro,
-			'cidade' => $request->cidade,
-			'uf' => $request->uf
-		]);
+		$data['pessoa_juridica_id'] = $pj->id;
+
+		$pj->endereco()->create($data);
 
 		return redirect()->route('pessoaJuridica.formEndereco')->with('flash_message',
 		'Endereço Foi Cadastrado Com Sucesso!');
@@ -97,10 +88,9 @@ class PessoaJuridicaController extends Controller
 
 	public function atualizarEndereco(Request $request)
 	{
-		$id = auth()->user()->id;
-		$pj = PessoaJuridica::findOrFail($id);
+		$pj = auth()->user();
 
-		$this->validate($request, [
+		$data = $this->validate($request, [
 			'cep'=>'required|min:8',
 			'logradouro'=>'required',
 			'bairro'=>'required',
@@ -110,16 +100,9 @@ class PessoaJuridicaController extends Controller
 			'uf'=>'required|max:2',
 		]);
 
-		$pj->endereco()->update([
-			'pessoa_juridica_id' => $id,
-			'cep' => $request->cep,
-			'logradouro' => $request->logradouro,
-			'numero' => $request->numero,
-			'complemento' => $request->complemento,
-			'bairro' => $request->bairro,
-			'cidade' => $request->cidade,
-			'uf' => $request->uf
-		]);
+		$data['pessoa_juridica_id'] = $pj->id;
+
+		$pj->endereco()->update($data);
 
 		return redirect()->route('pessoaJuridica.formEndereco')->with('flash_message',
 		'Seu Endereço Foi Atualizado Com Sucesso!');
@@ -127,10 +110,10 @@ class PessoaJuridicaController extends Controller
 
 	public function formTelefones()
 	{
-		$id = auth()->user()->id;
+		$pj = auth()->user();
 
-		if(auth()->user()->telefones->count() > 0){
-			$tel = PjTelefone::where('pessoa_juridica_id', $id)->first();
+		if($pj->telefone){
+			$tel = PjTelefone::find($pj->id);
 
 			return view('pessoaJuridica.editarTelefone', compact('tel'));
 
@@ -140,37 +123,28 @@ class PessoaJuridicaController extends Controller
 
 	public function cadastroTelefone(Request $request)
 	{
-		$id = auth()->user()->id;
+		$pj = auth()->user();
 
-		$this->validate($request, [
+		$data = $this->validate($request, [
 			'telefone' =>'required_without:celular',
 			'celular'  =>'required_without:telefone',
 		]);
+		$data['pessoa_juridica_id'] = $pj->id;
 
 		if ($request->celular && $request->telefone){
-			PjTelefone::create([
-				'pessoa_juridica_id'	=> $id,
-				'telefone' 		  	=> $request->telefone,
-				'celular' 		  	=> $request->celular
-			]);
+			PjTelefone::create($data);
 
 			return redirect()->route('pessoaJuridica.formTelefones')->with('flash_message',
 			'Telefones Cadastrados Com Sucesso!');
 
 		}elseif ($request->celular && !$request->telefone) {
-			PjTelefone::create([
-				'pessoa_juridica_id'	=> $id,
-				'celular' 		  	=> $request->celular
-			]);
+			PjTelefone::create($data);
 
 			return redirect()->route('pessoaJuridica.formTelefones')->with('flash_message',
 			'Celular cadastrado com Sucesso!');
 		}
 		elseif (!$request->celular && $request->telefone) {
-			PjTelefone::create([
-				'pessoa_juridica_id'	=> $id,
-				'telefone' 		  	=> $request->telefone,
-			]);
+			PjTelefone::create($data);
 
 			return redirect()->route('pessoaJuridica.formTelefones')->with('flash_message',
 			'Telefone cadastrado com Sucesso!');
@@ -179,40 +153,30 @@ class PessoaJuridicaController extends Controller
 	public function atualizaTelefone(Request $request)
 	{
 	
-		$id = auth()->user()->id;
+		$pj = auth()->user();
 
-		$this->validate($request, [
+		$data = $this->validate($request, [
 			'telefone' =>'required_without:celular',
 			'celular'  =>'required_without:telefone',
 		]);
-		$telefone = PjTelefone::where('pessoa_juridica_id', $id)->first();
+		$data['pessoa_juridica_id'] = $pj->id;
+
+		$telefone = PjTelefone::find($pj->id);
 
 		if ($request->celular && $request->telefone){
-			$telefone->update([
-				'pessoa_juridica_id'	=> $id,
-				'telefone' 		  	=> $request->telefone,
-				'celular' 		  	=> $request->celular
-			]);
+			$telefone->update($data);
 
 			return redirect()->route('pessoaJuridica.formTelefones')->with('flash_message',
 			'Telefones Atualizados Com Sucesso!');
 
 		}elseif ($request->celular && !$request->telefone) {
-			$telefone->update([
-				'pessoa_juridica_id'	=> $id,
-				'telefone' 		  	=> '',
-				'celular' 		  	=> $request->celular
-			]);
+			$telefone->update($data);
 
 			return redirect()->route('pessoaJuridica.formTelefones')->with('flash_message',
 			'Celular Atualizado com Sucesso!');
 		}
 		elseif (!$request->celular && $request->telefone) {
-			$telefone->update([
-				'pessoa_juridica_id'	=> $id,
-				'telefone' 		  	=> $request->telefone,
-				'celular' 		  	=> ''
-			]);
+			$telefone->update($data);
 
 			return redirect()->route('pessoaJuridica.formTelefones')->with('flash_message',
 			'Telefone Atualizado com Sucesso!');
@@ -225,11 +189,11 @@ class PessoaJuridicaController extends Controller
 		$rep = $pj->representanteLegal1;
 		$rep2 = $pj->representanteLegal2;
 
-		if($pj->representanteLegal1 && $pj->representanteLegal2)
+		if($rep && $rep2)
 		{
 			return view('pessoaJuridica.editarRepresentanteLegal', compact('rep', 'rep2'));
 
-		}elseif ($pj->representanteLegal1) 
+		}elseif ($rep) 
 		{
 			return view('pessoaJuridica.editarRepresentanteLegal', compact('rep'));
 		}
@@ -241,6 +205,7 @@ class PessoaJuridicaController extends Controller
 	public function cadastroRepresentante(Request $request)
 	{
 		$pj = auth()->user();
+
 		$data = $this->validate($request, [
 			'nome' 		=>	'required|string',
 			'rg'  		=>	'required',
@@ -258,6 +223,7 @@ class PessoaJuridicaController extends Controller
 	public function editarRepresentante(Request $request)
 	{
 		$pj = auth()->user();
+
 		$data = $this->validate($request, [
 			'nome' 		=>	'required',
 			'rg'  		=>	'required',
@@ -295,7 +261,7 @@ class PessoaJuridicaController extends Controller
 	{
 		$rep = auth()->user()->representanteLegal2;
 
-		if(auth()->user()->representanteLegal2)
+		if($rep)
 		{
 			return view('pessoaJuridica.editarRepresentanteLegal2', compact('rep'));
 		}
@@ -315,7 +281,7 @@ class PessoaJuridicaController extends Controller
 		$rep = RepresentanteLegal::create($data);	
 
 		# Verifica se existe o 1º Representante legal 
-		if(auth()->user()->representanteLegal1)
+		if($pj->representanteLegal1)
 		{	
 			$pj->update(['representante_legal2_id' => $rep->id]);
 
@@ -334,6 +300,7 @@ class PessoaJuridicaController extends Controller
 	public function editarRepresentante2(Request $request)
 	{
 		$pj = auth()->user();
+
 		$data = $this->validate($request, [
 			'nome' 		=>	'required',
 			'rg'  		=>	'required',
@@ -348,6 +315,7 @@ class PessoaJuridicaController extends Controller
 	public function removerRepresentante2(Request $request)
 	{
 		$pj = auth()->user();
+
 		$pj->update(['representante_legal2_id' => null]);
 
 		return redirect()->route('pessoaJuridica.formRepresentante2')->with('flash_message',
@@ -405,18 +373,18 @@ class PessoaJuridicaController extends Controller
 	
 	public function vincularRepresentante(Request $request)
     {
+		$pj = auth()->user();
+
 		$data = $this->validate($request,[
 			'nome' 	=> 'required',
 			'rg' 	=> 'required',
 		]);
-
-		$rep = RepresentanteLegal::findOrFail($request->id);
+		
+		$rep = RepresentanteLegal::find($request->id);
 
 		$rep->update($data);
 
-		$pj = auth()->user();
-
-		$pj->update(['representante_legal1_id' => $request->id ]);
+		$pj->update(['representante_legal1_id' => $rep->id ]);
 
 		return redirect()->route('pessoaJuridica.formRepresentante')->with('flash_message',
 		'1º Representante Legal Vinculado com Sucesso!');
@@ -437,7 +405,7 @@ class PessoaJuridicaController extends Controller
 		{
 			if($pj->representanteLegal1->id != $rep->id)
 			{
-				$pj->update(['representante_legal2_id' => $request->id ]);
+				$pj->update(['representante_legal2_id' => $rep->id ]);
 
 				$rep->update($data);
 
@@ -448,7 +416,7 @@ class PessoaJuridicaController extends Controller
 				->with('warning', 'Representate já foi cadastrado como 1º Representante Legal!');
 		}
 
-		$pj->update(['representante_legal1_id' => $request->id ]);
+		$pj->update(['representante_legal1_id' => $rep->id ]);
 		
 		$rep->update($data);
 
@@ -460,9 +428,11 @@ class PessoaJuridicaController extends Controller
 
 	public function pendencias()
 	{
+		$pj = auth()->user();
+		
 		$notificacoes = [];
 
-		if(!isset(auth()->user()->endereco->cep)){
+		if(!$pj->endereco){
 			
 			$notificacao = (object) 
 			[
@@ -474,7 +444,7 @@ class PessoaJuridicaController extends Controller
 
 		}
 
-		if(!auth()->user()->telefones->count() > 0){
+		if(!$pj->telefone){
 
 			$notificacao = (object) 
 			[
@@ -485,7 +455,7 @@ class PessoaJuridicaController extends Controller
 			array_push($notificacoes, $notificacao);
 		}
 
-		if(!auth()->user()->representante_legal1_id){
+		if(!$pj->representante_legal1_id){
 
 			$notificacao = (object) 
 			[

@@ -16,7 +16,7 @@ class PendenciasPJ
     public function handle($request, Closure $next)
     {
 
-        if(isset(auth()->user()->endereco->cep) && auth()->user()->telefones->count() > 0 && auth()->user()->representante_legal1_id)
+        if(auth()->user()->endereco && auth()->user()->telefone && auth()->user()->representante_legal1_id)
 
             return redirect()->route('pessoaJuridica.home');
 

@@ -41,14 +41,19 @@ class AuthServiceProvider extends ServiceProvider
             {              
                 Gate::define('pendecias', function ($user) {
 
-                    if((!isset($user->endereco->cep) || (!$user->telefones->count() > 0))){
+                    if(
+                        (!$user->endereco) ||
+                        (!$user->telefone)
+                    ){
                         return $user;
                     }
                 });
+
+                $pf = auth()->user();
                 
                 # Count das Pendencias PF
-                $count =  auth()->user()->telefones->count() ? 0 : 1;
-                $count += isset(auth()->user()->endereco->cep) ? 0 : 1;
+                $count =  $pf->telefone ? 0 : 1;
+                $count += $pf->endereco ? 0 : 1;
 
 
                 $event->menu->add('MENU DE NAVEGAÇÃO');
@@ -99,18 +104,20 @@ class AuthServiceProvider extends ServiceProvider
                 Gate::define('pendecias', function ($user) {
 
                     if(
-                        (!isset($user->endereco->cep) || // Se não tiver Endereco
-                        (!$user->telefones->count() > 0)) || // ou um telefone
-                        (!isset($user->representante_legal1_id)) // ou pelo menos o 1º rep legal
+                        (!$user->endereco) || // Se não tiver Endereco
+                        (!$user->telefone) || // Se não tiver Telefone
+                        (!$user->representanteLegal1) // Se não tiver pelo menos o 1º rep legal
                      ){
                         return $user;
                     }
                 });
 
+                $pj = auth()->user();
+
                 # Count das Pendencias PJ
-                $count =  auth()->user()->telefones->count() ? 0 : 1;
-                $count += isset(auth()->user()->endereco->cep) ? 0 : 1;
-                $count += auth()->user()->representante_legal1_id ? 0 : 1;
+                $count =  $pj->telefone ? 0 : 1;
+                $count += $pj->endereco ? 0 : 1;
+                $count += $pj->representanteLegal1 ? 0 : 1;
               
 
                 $event->menu->add('MENU DE NAVEGAÇÃO');

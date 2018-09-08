@@ -6,6 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class PfTelefone extends Model
 {
+    protected $primaryKey = 'pessoa_fisica_id';
+    
     protected $fillable = [
         'pessoa_fisica_id',
         'telefone',

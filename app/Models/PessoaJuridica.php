@@ -39,9 +39,9 @@ class PessoaJuridica extends Authenticatable
         return $this->hasOne(PjEndereco::class);
     }
 
-    public function telefones()
+    public function telefone()
     {
-        return $this->hasMany(PjTelefone::class);
+        return $this->hasOne(PjTelefone::class);
     }
 
     public function representanteLegal1()
