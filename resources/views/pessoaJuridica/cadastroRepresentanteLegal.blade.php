@@ -10,19 +10,22 @@
  
     <div class="box box-primary">
     	<div class="box-header with-border">
-    		<h3 class="box-title">1º Representante Legal</h3>
+			<h3 class="box-title">1º Representante Legal</h3><br>
     	</div>
-
+		
 	    <form method="POST" class="form form-inline" action="{{ route('pessoaJuridica.search') }}">
 	        {{ csrf_field() }}
 			<div class="box-body">
+				<p class="form-block">
+					<label>Pesquisar Representante Pelo CPF</label>
+				</p>
 				<input type="text" name="cpf2" id="CPF2" value="{{ old('cpf2') }}" class="form-control" placeholder="CPF" title="Pesquisar CPF Representante Legal">
 				<button class="btn btn-primary"><i class="glyphicon glyphicon-search"></i></button>
 			</div>
 	    </form>
 
 
-		<form role="form" id="formRep" method="post" action="{{route('pessoaJuridica.cadastroRepresentante')}}">
+		<form role="form" id="formRep"  method="post" action="{{ route('pessoaJuridica.cadastroRepresentante') }}">
 			{{ csrf_field() }}
 			<div class="box-body">
 				<div class="form-group has-feedback {{ $errors->has('nome') ? ' has-error' : '' }}">
@@ -36,7 +39,7 @@
 				</div>
 				<div class="form-group">
 					<label for="">CPF</label>
-					<input type="text" class="form-control" name="cpf" id="CPF" value="{{ old('cpf') }}" placeholder="CPF">
+					<input type="text" class="form-control" name="cpf" id="CPF" value="{{  old('cpf') }}{{  old('cpf2') }}" placeholder="CPF">
 				</div>
 			</div>
 
@@ -45,7 +48,6 @@
 			</div>
 		</form>
     </div>
-
     
 @stop
 
@@ -75,6 +77,13 @@
 				inputId.value 	= '{{$rep->id}}';	
 				form.insertBefore(inputId, form.firstChild);
 			</script>		
+		@endif
+
+		@if (session()->has('warning'))
+			<script>
+					let form = document.querySelector("#formRep");
+					
+			</script>			
 		@endif
 		
     <script>

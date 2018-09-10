@@ -327,7 +327,7 @@ class PessoaJuridicaController extends Controller
 		$dataForm = $request->except('_token');
 		
 		$this->validate($request, [
-			'cpf2' 		=>	'required|min:14',
+			'cpf2' 		=>	'required|min:14|cpf',
 		],
         [
             'required' => 'O campo :attribute é obrigatório para localizar o Representante Legal',
@@ -343,7 +343,7 @@ class PessoaJuridicaController extends Controller
 				->with('flash_message', 'Verifique se o Representante Legal corresponde a Pesquisa');
 
 		return redirect()->back()
-				->with('warning', 'Não existe Representante Legal Cadastrado Com Esse CPF');
+				->with('warning', 'Não existe Representante Legal Cadastrado Com Esse CPF')->withInput($request->all());
 
 	} 
 	
@@ -443,7 +443,7 @@ class PessoaJuridicaController extends Controller
 			array_push($notificacoes, $notificacao);
 
 		}
-
+		
 		if(!$pj->telefone){
 
 			$notificacao = (object) 
@@ -455,7 +455,7 @@ class PessoaJuridicaController extends Controller
 			array_push($notificacoes, $notificacao);
 		}
 
-		if(!$pj->representante_legal1_id){
+		if(!$pj->representanteLegal1){
 
 			$notificacao = (object) 
 			[
