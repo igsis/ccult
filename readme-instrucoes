@@ -1,0 +1,19 @@
+1º Instalar Dependências 
+
+composer install
+
+2º Cria o arquivo .env que é uma cópia do .env.example
+
+php -r "copy('.env.example','.env')";"
+
+3º Cria o App_key que é usado para criptografia dos dados
+
+php artisan key:generate
+
+4º Após inserir as informações: 
+
+DB_DATABASE= 
+DB_USERNAME= 
+DB_PASSWORD= 
+
+A aplicação pode ser executada com o: php artisan serve
