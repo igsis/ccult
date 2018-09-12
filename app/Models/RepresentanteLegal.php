@@ -24,8 +24,8 @@ class RepresentanteLegal extends Model
 	public function search(Array $data)
     {
     	return $this->where(function($query) use ($data) {
-    		if (isset($data['cpf2'])) {
-    			$query->where('cpf', '=', $data['cpf2']);
+    		if (isset($data['cpf'])) {
+    			$query->where('cpf', '=', $data['cpf']);
     		}
     	});
     }

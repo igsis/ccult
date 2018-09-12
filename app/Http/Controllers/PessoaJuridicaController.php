@@ -198,7 +198,7 @@ class PessoaJuridicaController extends Controller
 			return view('pessoaJuridica.editarRepresentanteLegal', compact('rep'));
 		}
 
-		return view('pessoaJuridica.cadastroRepresentanteLegal');
+		return view('pessoaJuridica.pesquisarRepresentanteLegal');
 
 	}
 
@@ -325,14 +325,14 @@ class PessoaJuridicaController extends Controller
 	public function search(Request $request, RepresentanteLegal $representanteLegal)
     {
 		$dataForm = $request->except('_token');
-		
+
 		$this->validate($request, [
-			'cpf2' 		=>	'required|min:14|cpf',
+			'cpf' 		=>	'required|min:14|cpf',
 		],
         [
             'required' => 'O campo :attribute é obrigatório para localizar o Representante Legal',
-        ], [
-            'cpf2'      => 'CPF',
+		],[
+            'cpf'      => 'CPF',
         ]);
 
 		$rep = $representanteLegal->search($dataForm)->first();
@@ -342,8 +342,7 @@ class PessoaJuridicaController extends Controller
 			return view('pessoaJuridica.cadastroRepresentanteLegal', compact('rep'))
 				->with('flash_message', 'Verifique se o Representante Legal corresponde a Pesquisa');
 
-		return redirect()->back()
-				->with('warning', 'Não existe Representante Legal Cadastrado Com Esse CPF')->withInput($request->all());
+		return view('pessoaJuridica.cadastroRepresentanteLegal')->with('cpf', $request->cpf);
 
 	} 
 	
