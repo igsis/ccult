@@ -191,14 +191,14 @@ class PessoaJuridicaController extends Controller
 
 		if(!$rep && $rep2)
 		{
-			return view('pessoaJuridica.pesquisarRepresentanteLegal', compact('rep2'));
+			return view('pessoaJuridica.cadastroRepresentanteLegal', compact('rep2'));
 			
 		}elseif ($rep) 
 		{
 			return view('pessoaJuridica.editarRepresentanteLegal', compact('rep'));
 		}
 
-		return view('pessoaJuridica.pesquisarRepresentanteLegal');
+		return view('pessoaJuridica.cadastroRepresentanteLegal');
 
 	}
 
@@ -315,13 +315,14 @@ class PessoaJuridicaController extends Controller
         ]);
 
 		$rep = $representanteLegal->search($dataForm)->first();
-
+	
 		if ($rep)
         
-			return view('pessoaJuridica.cadastroRepresentanteLegal', compact('rep'))
-				->with('flash_message', 'Verifique se o Representante Legal corresponde a Pesquisa');
+			return view('pessoaJuridica.cadastroRepresentanteLegal', compact('rep'));
 
 		return view('pessoaJuridica.cadastroRepresentanteLegal')->with('cpf', $request->cpf);
+
+		// return redirect()->route('named_route', ['parameterKey' => 'value']);
 
 	} 
 	
