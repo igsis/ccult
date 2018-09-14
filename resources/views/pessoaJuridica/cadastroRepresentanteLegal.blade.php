@@ -70,8 +70,6 @@
 		@if (isset($cpf))
 			<script>
 				cpf.value 		= '{{ $cpf }}';
-
-					
 			</script>			
 		@endif
 		

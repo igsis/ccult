@@ -161,12 +161,12 @@ class AuthServiceProvider extends ServiceProvider
                         'icon' => 'user',
                         'submenu' => [
                             [
-                                'text'  => 'Representante Legal 1',
+                                'text'  => '1º Representante Legal',
                                 'icon'  => '',
                                 'url'   => route('pessoaJuridica.formRepresentante'),
                             ],            
                             [
-                                'text'  => 'Representante Legal 2',
+                                'text'  => '2º Representante Legal',
                                 'icon'  => '',
                                 'url'   => route('pessoaJuridica.formRepresentante2'),                                
                             ],
