@@ -85,8 +85,8 @@
                 </div>
 
                 <div class="links">                    
-                <button type="button" class="btn btn-outline-info link-cor"><a class="btn btn-default" href="/PessoaFisica/login">Cadastro Pessoa Física</a></button>
-                    <button type="button" class="btn btn-outline-info"><a class="btn btn-default" href="/PessoaJuridica/login">Cadastro Pessoa Jurídica</a></button>
+                <button type="button" class="btn btn-outline-info link-cor"><a class="btn btn-default" href="/PessoaFisica/login"> Login Pessoa Física</a></button>
+                    <button type="button" class="btn btn-outline-info"><a class="btn btn-default" href="/PessoaJuridica/login"> Login Pessoa Jurídica</a></button>
                     <!-- <div class="dropdown">
                         <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             Cadastro Pessoa Física

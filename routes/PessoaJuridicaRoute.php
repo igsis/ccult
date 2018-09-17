@@ -60,6 +60,10 @@ Route::group(['prefix' => 'PessoaJuridica', 'middleware' => 'pessoaJuridica'], f
 
     Route::post('/VincularRepresentanteLegal-2' , 'PessoaJuridicaController@vincularRepresentante2')->name('pessoaJuridica.vincularRepresentante2');
 
+    Route::get('/VincularRepresentante',  'PessoaJuridicaController@formVincularRepresentante')->name('pessoaJuridica.formVincularRepresentante');
+
+    Route::get('CadastrarRepresentante',  'PessoaJuridicaController@formCadastrarRepresentante')->name('pessoaJuridica.formCadastrarRepresentante');
+
     
 
 });        

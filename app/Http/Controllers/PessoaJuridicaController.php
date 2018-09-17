@@ -191,14 +191,14 @@ class PessoaJuridicaController extends Controller
 
 		if(!$rep && $rep2)
 		{
-			return view('pessoaJuridica.cadastroRepresentanteLegal', compact('rep2'));
+			return view('pessoaJuridica.pesquisarRepresentanteLegal', compact('rep2'));
 			
 		}elseif ($rep) 
 		{
 			return view('pessoaJuridica.editarRepresentanteLegal', compact('rep'));
 		}
 
-		return view('pessoaJuridica.cadastroRepresentanteLegal');
+		return view('pessoaJuridica.pesquisarRepresentanteLegal');
 
 	}
 
@@ -316,15 +316,32 @@ class PessoaJuridicaController extends Controller
 
 		$rep = $representanteLegal->search($dataForm)->first();
 	
-		if ($rep)
-        
-			return view('pessoaJuridica.cadastroRepresentanteLegal', compact('rep'));
+		if ($rep){
+			$request->session()->put('rep', $rep);
+			return redirect()->route('pessoaJuridica.formVincularRepresentante')
+				->with('warning', 'Verifique se esse representante corresponde a pesquisa do CPF informado');
+		}
 
-		return view('pessoaJuridica.cadastroRepresentanteLegal')->with('cpf', $request->cpf);
+		$request->session()->put('cpf',$request->cpf);
+		return redirect()->route('pessoaJuridica.formCadastrarRepresentante')
+			->with('flash_message', 'Cadastre o representante Legal');
 
-		// return redirect()->route('named_route', ['parameterKey' => 'value']);
+	}
 
-	} 
+	public function formVincularRepresentante(Request $request){
+		
+		$rep = $request->session()->get('rep');
+
+
+		return view('pessoaJuridica.vincularRepresentanteLegal', compact('rep'));
+	}
+
+	public function formCadastrarRepresentante(Request $request){
+
+		$cpf = $request->session()->get('cpf');
+
+		return view('pessoaJuridica.cadastroRepresentanteLegal', compact('cpf'));
+	}
 	
 	public function search2(Request $request, RepresentanteLegal $representanteLegal)
     {
@@ -364,6 +381,9 @@ class PessoaJuridicaController extends Controller
 		$rep->update($data);
 
 		$pj->update(['representante_legal1_id' => $rep->id ]);
+		
+		// destroi a sessao
+		// $request->session()->pull('rep', []);
 
 		return redirect()->route('pessoaJuridica.formRepresentante')->with('flash_message',
 		'1º Representante Legal Vinculado com Sucesso!');
