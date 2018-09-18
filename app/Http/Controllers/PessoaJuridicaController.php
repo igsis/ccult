@@ -342,30 +342,48 @@ class PessoaJuridicaController extends Controller
 
 		return view('pessoaJuridica.cadastroRepresentanteLegal', compact('cpf'));
 	}
+
+	public function formVincularRepresentante2(Request $request){
+		
+		$rep = $request->session()->get('rep');
+
+
+		return view('pessoaJuridica.vincularRepresentanteLegal2', compact('rep'));
+	}
+
+	public function formCadastrarRepresentante2(Request $request){
+
+		$cpf = $request->session()->get('cpf');
+
+		return view('pessoaJuridica.cadastroRepresentanteLegal2', compact('cpf'));
+	}
 	
 	public function search2(Request $request, RepresentanteLegal $representanteLegal)
     {
 		$dataForm = $request->except('_token');
 		
 		$this->validate($request, [
-			'cpf2' 		=>	'required|min:14',
+			'cpf' 		=>	'required|min:14',
 		],
         [
             'required' => 'O campo :attribute é obrigatório para localizar o Representante Legal',
         ], [
-            'cpf2'      => 'CPF',
+            'cpf'      => 'CPF',
         ]);
 
 		$rep = $representanteLegal->search($dataForm)->first();
 
-		if ($rep)
-        
-			return view('pessoaJuridica.cadastroRepresentanteLegal2', compact('rep'))
-				->with('flash_message', 'Verifique se o Representante Legal corresponde a Pesquisa');
+		if ($rep){
+			$request->session()->put('rep', $rep);
+			return redirect()->route('pessoaJuridica.formVincularRepresentante2')
+				->with('warning', 'Verifique se esse representante corresponde a pesquisa do CPF informado');
+		}
 
-		return redirect()->back()
-				->with('warning', 'Não existe Representante Legal Cadastrado Com Esse CPF');
-    }  
+		$request->session()->put('cpf',$request->cpf);
+		return redirect()->route('pessoaJuridica.formCadastrarRepresentante2')
+			->with('flash_message', 'Cadastre o representante Legal');
+
+	}
 	
 	public function vincularRepresentante(Request $request)
     {

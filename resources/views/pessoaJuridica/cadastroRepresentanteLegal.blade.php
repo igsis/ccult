@@ -27,7 +27,7 @@
 				</div>
 				<div class="form-group">
 					<label for="">CPF</label>
-					<input type="text" class="form-control" name="cpf" id="CPF" value="{{  old('cpf') }}" placeholder="CPF" disabled>
+					<input type="text" class="form-control" name="cpf" id="CPF" value="{{  old('cpf') }}" placeholder="CPF">
 				</div>
 			</div>
 
@@ -60,8 +60,6 @@
         $(document).ready(function () { 
             let $seuCampoCpf = $("#CPF");
             $seuCampoCpf.mask('000.000.000-00', {reverse: true});
-			let $seuCampoCpf2 = $("#CPF2");
-            $seuCampoCpf2.mask('000.000.000-00', {reverse: true});
         });
     </script>
 @stop
