@@ -32,6 +32,7 @@ class RegisterController extends Controller
             'email' => 'required|string|email|max:255|unique:pessoa_fisicas',
             'password' => 'required|string|min:6|confirmed',
             'cpf' => 'required|min:14|cpf|unique:pessoa_fisicas',
+            'passaporte' => 'nullable',
             'rg_rne' => 'required|string|min:6',
             'data_nascimento'  => 'required',
         ],
@@ -43,6 +44,7 @@ class RegisterController extends Controller
             'email'             => 'E-mail',
             'password'          => 'Senha',
             'cpf'               => 'CPF',
+            'passaporte'        => 'Passaporte',
             'rg_rne'            => 'RG - RNE',
             'data_nascimento'   => 'Data de Nascimento',
         ]);
@@ -59,6 +61,7 @@ class RegisterController extends Controller
             'nome' => $data['nome'],
             'email' => $data['email'],
             'cpf' => $data['cpf'],
+            'passaporte' => $data['passaporte'],
             'rg_rne' => $data['rg_rne'],
             'data_nascimento' => $data['data_nascimento'],
             'password' => Hash::make($data['password']),

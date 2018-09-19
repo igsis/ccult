@@ -31,6 +31,17 @@
                         </span>
                     @endif
                 </div>
+                
+                <div class="form-group has-feedback {{ $errors->has('passaporte') ? 'has-error' : '' }}">
+                    <input type="text" name="passaporte" class="form-control" value="{{ old('passaporte') }}"
+                           placeholder="Passaporte">
+                    <span class="glyphicon glyphicon- form-control-feedback"></span>
+                    @if ($errors->has('passaporte'))
+                        <span class="help-block">
+                            <strong>{{ $errors->first('passaporte') }}</strong>
+                        </span>
+                    @endif
+                </div>
                 <div class="form-group has-feedback {{ $errors->has('password') ? 'has-error' : '' }}">
                     <input type="password" name="password" class="form-control"
                            placeholder="{{ trans('adminlte::adminlte.password') }}">

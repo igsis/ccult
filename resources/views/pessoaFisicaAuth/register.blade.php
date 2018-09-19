@@ -51,6 +51,16 @@
                             <strong>{{ $errors->first('rg_rne') }}</strong>
                         </span>
                     @endif
+                </div>
+                <div class="form-group has-feedback {{ $errors->has('passaporte') ? 'has-error' : '' }}">
+                    <input type="text" name="passaporte" class="form-control" value="{{ old('passaporte') }}"
+                           placeholder="Passaporte">
+                    <span class="glyphicon glyphicon-ser form-control-feedback"></span>
+                    @if ($errors->has('passaporte'))
+                        <span class="help-block">
+                            <strong>{{ $errors->first('passaporte') }}</strong>
+                        </span>
+                    @endif
                 </div>     
 
                 <div class="form-group has-feedback {{ $errors->has('data_nascimento') ? 'has-error' : '' }}">

@@ -21,7 +21,19 @@ class LoginController extends Controller
 
     public function username()
     {
+
+        if (request()->get('cpf'))
+        {
+            return 'cpf';
+        }
+
+        if (request()->get('passaporte'))
+        {
+            return 'passaporte';
+        }
+
         return 'cpf';
+
     }
   
     public function showLoginForm()
@@ -32,7 +44,8 @@ class LoginController extends Controller
     public function login(Request $request)
     {
         $this->validate($request,[
-            'cpf' => 'required|min:14',
+            'cpf' => 'required_without:passaporte',
+            'passaporte' => 'required_without:cpf',
             'password' => 'required|min:6'
         ],
         [
@@ -41,21 +54,43 @@ class LoginController extends Controller
             'cpf'      => 'CPF',
             'password'  => 'Senha',
         ]);
-
-        $credential = [
-            'cpf' => $request->cpf,
-            'password' => $request->password
-        ];
+        
+        if ($request->cpf)
+        {
+            $credential = [
+                'cpf'       =>  $request->cpf,
+                'password'  =>  $request->password
+            ];
+        }elseif ($request->passaporte)
+        {
+            $credential = [
+                'passaporte'    =>  $request->passaporte,
+                'password'      =>  $request->password
+            ];
+        }
 
         if ($request->get('user_check') == '' || $request->get('user_check') == null) {
-            $checker = PessoaFisica::where("cpf",$request->cpf)->first(); 
+
+            $checker = PessoaFisica::where("cpf", $request->cpf)->first(); 
+
+            $checker2 = PessoaFisica::where("passaporte", $request->passaporte)->first(); 
+
             if ($checker) {
                 if(Auth::guard('pessoaFisica')->attempt($credential, $request->menber)){
                     return redirect()->route('pessoaFisica.home');
                 } else {
                     return $this->sendFailedLoginResponse($request);
                 }    
-            } else {
+            }
+            elseif ($checker2) {
+                if(Auth::guard('pessoaFisica')->attempt($credential, $request->menber)){
+                    return redirect()->route('pessoaFisica.home');
+                } else {
+                    return $this->sendFailedLoginResponse($request);
+                    
+                }    
+            }
+            else {
                 return $this->sendFailedLoginResponse($request);
             }
         } 
