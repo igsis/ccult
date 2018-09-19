@@ -443,6 +443,20 @@ class PessoaJuridicaController extends Controller
 
 	}
 
+
+	public function trocarRepLegal(){
+		$pj = auth()->user();
+
+		$rep = $pj->representanteLegal2;
+
+		$pj->update(['representante_legal1_id' => $rep->id ]);
+		$pj->update(['representante_legal2_id' => null ]);
+
+		return redirect()->route('pessoaJuridica.formRepresentante')
+			->with('flash_message','Alteração Realizada com Sucesso!');;
+
+	}
+
 	public function pendencias()
 	{
 		$pj = auth()->user();

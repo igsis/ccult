@@ -56,7 +56,7 @@
                 </div>  			
 
                 <div class="box-footer">
-                    <button type="submit" class="btn btn-primary">Atualizar Endereco</button>
+                    <button type="submit" class="btn btn-primary">Atualizar Endereço</button>
                 </div>
             </div>
     	</form>

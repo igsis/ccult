@@ -32,7 +32,7 @@
 							<p>Deseja Realizar a troca?</p>
 						</div>
 						<div class="modal-footer">
-							<form method="POST" action="rota trocar 2° rep para 1º rep ">
+							<form method="POST" action="{{ route('pessoaJuridica.trocarRepLegal') }}">
 								<input type="hidden" name="_token" value="{{ csrf_token() }}">
 									<button type="button" class="btn btn-default" data-dismiss="modal">Não</button>					
 								<button type="submit" class="btn btn-primary" data-toggle="modal" data-target="#modal-default">

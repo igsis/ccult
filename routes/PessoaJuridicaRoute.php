@@ -68,5 +68,6 @@ Route::group(['prefix' => 'PessoaJuridica', 'middleware' => 'pessoaJuridica'], f
 
     Route::get('CadastrarRepresentante2',  'PessoaJuridicaController@formCadastrarRepresentante2')->name('pessoaJuridica.formCadastrarRepresentante2');
 
+    Route::post('/TrocarRepresentanteLegal' , 'PessoaJuridicaController@trocarRepLegal')->name('pessoaJuridica.trocarRepLegal');
 });        
 

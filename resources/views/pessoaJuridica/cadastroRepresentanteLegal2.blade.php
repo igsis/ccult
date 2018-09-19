@@ -33,7 +33,7 @@
 
 			<div class="box-footer">
 				<button id="btn" type="submit" class="btn btn-primary">Cadastrar Representante Legal</button>
-				<a class="btn btn-info" href="{{ route('pessoaJuridica.formRepresentante') }}"> Cadastrar Com Outro CPF </a>
+				<a class="btn btn-info" href="{{ route('pessoaJuridica.formRepresentante2') }}"> Cadastrar Com Outro CPF </a>
 			</div>
 		</form>
 
