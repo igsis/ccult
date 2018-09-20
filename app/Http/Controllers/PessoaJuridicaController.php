@@ -345,7 +345,7 @@ class PessoaJuridicaController extends Controller
 
 	public function formVincularRepresentante2(Request $request){
 		
-		$rep = $request->session()->get('rep');
+		$rep = $request->session()->get('rep2');
 
 
 		return view('pessoaJuridica.vincularRepresentanteLegal2', compact('rep'));
@@ -353,7 +353,7 @@ class PessoaJuridicaController extends Controller
 
 	public function formCadastrarRepresentante2(Request $request){
 
-		$cpf = $request->session()->get('cpf');
+		$cpf = $request->session()->get('cpf2');
 
 		return view('pessoaJuridica.cadastroRepresentanteLegal2', compact('cpf'));
 	}
@@ -374,12 +374,12 @@ class PessoaJuridicaController extends Controller
 		$rep = $representanteLegal->search($dataForm)->first();
 
 		if ($rep){
-			$request->session()->put('rep', $rep);
+			$request->session()->put('rep2', $rep);
 			return redirect()->route('pessoaJuridica.formVincularRepresentante2')
 				->with('warning', 'Verifique se esse representante corresponde a pesquisa do CPF informado');
 		}
 
-		$request->session()->put('cpf',$request->cpf);
+		$request->session()->put('cpf2',$request->cpf);
 		return redirect()->route('pessoaJuridica.formCadastrarRepresentante2')
 			->with('flash_message', 'Cadastre o representante Legal');
 
@@ -400,8 +400,8 @@ class PessoaJuridicaController extends Controller
 
 		$pj->update(['representante_legal1_id' => $rep->id ]);
 		
-		// destroi a sessao
-		// $request->session()->pull('rep', []);
+		// Destroi a sessao
+		$request->session()->pull('rep', []);
 
 		return redirect()->route('pessoaJuridica.formRepresentante')->with('flash_message',
 		'1º Representante Legal Vinculado com Sucesso!');
@@ -418,8 +418,12 @@ class PessoaJuridicaController extends Controller
 
 		$rep = RepresentanteLegal::findOrFail($request->id);
 
+		// Destroi a sessao
+		$request->session()->pull('rep2', []);
+
 		if($pj->representanteLegal1)
 		{
+
 			if($pj->representanteLegal1->id != $rep->id)
 			{
 				$pj->update(['representante_legal2_id' => $rep->id ]);
@@ -429,17 +433,16 @@ class PessoaJuridicaController extends Controller
 				return redirect()->route('pessoaJuridica.formRepresentante2')->with('flash_message',
 					'2º Representante Legal Vinculado com Sucesso!');
 			}
-			return redirect()->back()
+			return redirect()->route('pessoaJuridica.formRepresentante2')
 				->with('warning', 'Representate já foi cadastrado como 1º Representante Legal!');
 		}
 
-		$pj->update(['representante_legal1_id' => $rep->id ]);
-		
+		$pj->update(['representante_legal2_id' => $rep->id ]);
+
 		$rep->update($data);
 
-		return redirect()->route('pessoaJuridica.formRepresentante')->with('flash_message',
-			'Você tentou Vincular o 2º Representante antes do 1º Representante,<br>
-			Devido a isso, esse Representqante foi Vinculado como 1º Representqante Legal!');
+		return redirect()->route('pessoaJuridica.formRepresentante2')->with('flash_message',
+			'2º Representante Legal Vinculado com Sucesso!');
 
 	}
 
