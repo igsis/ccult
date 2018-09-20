@@ -19,10 +19,10 @@ class PessoaJuridica extends Authenticatable
         'password',
         'representante_legal1_id',
         'representante_legal2_id',
+        'upload_arquivo_id',
         'active',
         'created_at',
         'updated_at'
-        // documento_tipo_id ??
     ];
 
     /**

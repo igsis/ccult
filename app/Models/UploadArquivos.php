@@ -11,12 +11,11 @@ class UploadArquivos extends Model
     public $timestamps = false;
 
     protected $fillable = [
-        'idUploadArquivo', 
-        'idTipo', 
+        'idUploadArquivo',  
         'idPessoa', 
         'idListaDocumento', 
         'arquivo', 
-        'dataEnvio', 
+        'data_envio', 
         'publicado'
     ];
 

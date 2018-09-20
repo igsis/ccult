@@ -15,7 +15,7 @@ class PessoaFisica extends Authenticatable
         'nome',
         'nome_social',
         'nome_artistico',
-        'documento_tipo_id',
+        'upload_arquivo_id',
         'rg_rne',
         'ccm',
         'cpf',
