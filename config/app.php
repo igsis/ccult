@@ -157,6 +157,9 @@ return [
          */
         ccult\Providers\AppServiceProvider::class,
         ccult\Providers\AuthServiceProvider::class,
+        ccult\Providers\MenuPessoaFisicaProvider::class,
+        ccult\Providers\MenuPessoaJuridicaProvider::class,
+        ccult\Providers\MenuUserAdminProvider::class,
         // ccult\Providers\BroadcastServiceProvider::class,
         ccult\Providers\EventServiceProvider::class,
         ccult\Providers\RouteServiceProvider::class,
