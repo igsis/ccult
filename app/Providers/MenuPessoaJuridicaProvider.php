@@ -92,14 +92,12 @@ class MenuPessoaJuridicaProvider extends ServiceProvider
                                 'url'   => route('pessoaJuridica.formRepresentante2'),                                
                             ],
                         ],
-                    ]/*
-                    ,
+                    ]/*,
                     [
                         'text'  =>   'Documentos',
-                        'url'   =>    "route('pessoaJuridica.upload.listar')",
+                        'url'   =>    route('pessoaJuridica.upload.listar'),
                         'icon'  =>   ' fa-cloud-upload',
-                    ]
-                    */
+                    ]*/
                 );
             }
         });
