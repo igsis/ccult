@@ -14,7 +14,12 @@ class UploadPjController extends Controller
         $this->middleware('auth:pessoaJuridica');
     }
 
-    public function listar()
+    public function viewUploads()
+    {
+       return view('pessoaJuridica.documentos.index');
+    }
+
+    public function upload()
     {
         $docs = ListaDocumentos::all();
         foreach ($docs as $doc) {
