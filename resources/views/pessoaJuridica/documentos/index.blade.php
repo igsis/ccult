@@ -13,25 +13,17 @@
         <h3 class="box-title">Quick Example</h3>
     </div>
 
-    <form role="form">
-      <div class="box-body">
-        <div class="form-group">
-            <label for="exampleInputFile">File input</label>
-            <input type="file" id="exampleInputFile">
-            @csrf
-            <p class="help-block">Example block-level help text here.</p>
+    <form role="form" method="POST" action="{{ route('pessoaJuridica.upload') }}">
+        <div class="box-body">
+            <div class="form-group">
+                <label for="exampleInputFile">File input</label>
+                <input type="file" name="cpf">
+                @csrf
+            </div>
+            <div class="box-footer">
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </div>
         </div>
-        <div class="checkbox">
-            <label>
-                <input type="checkbox"> Check me out
-            </label>
-        </div>
-      </div>
-      <!-- /.box-body -->
-
-      <div class="box-footer">
-        <button type="submit" class="btn btn-primary">Submit</button>
-      </div>
     </form>
   </div>
 @stop
