@@ -55,13 +55,6 @@
 	    				<input type="email" class="form-control" name="email" placeholder='example@email.com' value="{{ $pessoaFisica->email }}">
 	    			</div>
 	    		</div>
-    			<div class="form-group has-feedback {{ $errors->has('documento') ? ' has-error' : '' }}">
-    				<label for="">Documento?</label>
-    				<input type="file" name="documento" id="">
-
-    				<p class="help-block">Arquivo de até 3 megas</p>
-    			</div>
-
     		</div>
 
     		<div class="box-footer">

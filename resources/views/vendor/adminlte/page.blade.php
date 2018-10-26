@@ -132,7 +132,7 @@
                 
                 <div class="alert alert-warning"><em> {!! session('warning') !!}</em></div>
 
-                 @endif
+                @endif
                 @yield('content')
 
             </section>
